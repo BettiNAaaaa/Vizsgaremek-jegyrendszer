@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
     
-public class adatbazis {
+public class Database {
     
     private static final String URL = "ajdfbajofb"; 
     private static final String USER = "root"; 
