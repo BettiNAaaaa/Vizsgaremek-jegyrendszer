@@ -30,6 +30,17 @@ public class UserService {
         if (user != null && user.getPassword().equals(password)) {
             return user;
         }
+        if (user != null && user.getPassword().equals(password)) {
+        return user; 
+    }
+        
         return null;
     }
+    
+    public boolean isAdmin(User user) {
+    return user.getRole().equalsIgnoreCase("ADMIN");
 }
+    
+   
+}
+
