@@ -11,7 +11,7 @@ import java.sql.SQLException;
     
 public class Database {
     
-    private static final String URL = "ajdfbajofb"; 
+    private static final String URL = "http://localhost/phpMyAdmin5/index.php?route=/database/structure&server=1&db=vizsgaremek+%28ticketz%29"; 
     private static final String USER = "root"; 
     private static final String PASSWORD = ""; 
 
