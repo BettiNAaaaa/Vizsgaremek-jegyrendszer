@@ -37,7 +37,9 @@ public class UserDAO {
                 rs.getInt("id"),
                 rs.getString("name"),
                 rs.getString("email"),
-                rs.getString("password")
+                rs.getString("password"),
+                rs.getString("role")
+                 
             );
         }
         return null;
