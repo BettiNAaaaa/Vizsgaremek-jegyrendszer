@@ -16,7 +16,7 @@ public class Jegyvasarlo {
 
   
 
-public class Main {
+
     public static void main(String[] args) {
         try (Connection conn = Database.getConnection()) {
             UserDAO userDAO = new UserDAO(conn);
@@ -37,4 +37,4 @@ public class Main {
             e.printStackTrace();
         }
     }
-}}
+}
