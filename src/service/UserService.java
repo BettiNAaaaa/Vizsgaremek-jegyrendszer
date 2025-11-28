@@ -4,43 +4,42 @@
  */
 package service;
 
-import dao.UserDAO;
+import dao.userDAO;
 import model.User;
-import java.sql.SQLException;
 
 public class UserService {
-    private UserDAO userDAO;
 
-    public UserService(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    private userDAO userDao = new userDAO();
+
+    public User login(String email, String password) {
+
+        User u = userDao.findByEmail(email);
+
+        if (u == null) return null;
+        if (!u.getPassword().equals(password)) return null;
+
+        return u;
     }
 
-    public boolean register(User user) throws SQLException {
-        User existing = userDAO.getByEmail(user.getEmail());
-        if (existing != null) {
-            System.out.println("Ez az e-mail már létezik!");
-            return false;
+    public boolean register(String name, String email, String password) {
+        if (userDao.findByEmail(email) != null) {
+            return false; // email foglalt
         }
-        userDAO.addUser(user);
-        return true;
+
+        User u = new User();
+        u.setName(name);
+        u.setEmail(email);
+        u.setPassword(password);
+        u.setRole("USER");
+
+        return userDao.save(u);
     }
 
-    public User login(String email, String password) throws SQLException {
-        User user = userDAO.getByEmail(email);
-        if (user != null && user.getPassword().equals(password)) {
-            return user;
-        }
-        if (user != null && user.getPassword().equals(password)) {
-        return user; 
+    public boolean isAdmin(User u) {
+        return u.getRole().equals("ADMIN");
     }
-        
-        return null;
-    }
-    
-    public boolean isAdmin(User user) {
-    return user.getRole().equalsIgnoreCase("ADMIN");
-}
-    
-   
-}
 
+    public java.util.List<User> getAll() {
+        return userDao.findAll();
+    }
+}

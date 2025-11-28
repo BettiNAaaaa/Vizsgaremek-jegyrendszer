@@ -6,7 +6,6 @@ package jegyvasarlo;
  import dao.*;
 import model.*;
 import service.*;
-
 import java.sql.Connection;
 /**
  *
@@ -19,10 +18,10 @@ public class Jegyvasarlo {
 
     public static void main(String[] args) {
         try (Connection conn = Database.getConnection()) {
-            UserDAO userDAO = new UserDAO(conn);
+            userDAO userDAO = new userDAO(conn);
             UserService userService = new UserService(userDAO);
             User newUser = new User(0, "Teszt Elek", "teszt@valami.hu", "1234");
-            boolean ok = userService.register(newUser);
+            boolean ok = UserService.register(newUser);
             System.out.println(ok ? "Sikeres regisztráció" : "E-mail már létezik!");
 
      
