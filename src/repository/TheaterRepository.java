@@ -2,51 +2,52 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
+
 package repository;
 
 import dao.Database;
-import model.Movie;
+import model.Theater;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieRepository {
+public class TheaterRepository {
 
-    public List<Movie> getAll() {
-        List<Movie> movies = new ArrayList<>();
+    public List<Theater> getAll() {
+        List<Theater> theaters = new ArrayList<>();
 
         try (Connection conn = Database.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM movies");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM theaters");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                movies.add(new Movie(
+                theaters.add(new Theater(
                         rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getString("description"),
-                        rs.getString("coverUrl")
+                        rs.getString("name"),
+                        rs.getString("location")
                 ));
             }
+
         } catch (Exception e) { e.printStackTrace(); }
 
-        return movies;
+        return theaters;
     }
 
-    public Movie getById(int id) {
+    public Theater getById(int id) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement ps =
-                    conn.prepareStatement("SELECT * FROM movies WHERE id = ? LIMIT 1");
+                    conn.prepareStatement("SELECT * FROM theaters WHERE id = ? LIMIT 1");
 
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                return new Movie(
+                return new Theater(
                         rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getString("description"),
-                        rs.getString("coverUrl")
+                        rs.getString("name"),
+                        rs.getString("location")
                 );
             }
 
@@ -55,15 +56,14 @@ public class MovieRepository {
         return null;
     }
 
-    public boolean add(Movie movie) {
+    public boolean add(Theater t) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(
-                    "INSERT INTO movies(title, description, coverUrl) VALUES (?, ?, ?)"
+                    "INSERT INTO theaters(name, location) VALUES (?, ?)"
             );
 
-            ps.setString(1, movie.getTitle());
-            ps.setString(2, movie.getDescription());
-            ps.setString(3, movie.getCoverUrl());
+            ps.setString(1, t.getName());
+            ps.setString(2, t.getLocation());
 
             return ps.executeUpdate() > 0;
 
@@ -72,16 +72,15 @@ public class MovieRepository {
         return false;
     }
 
-    public boolean update(Movie movie) {
+    public boolean update(Theater t) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(
-                    "UPDATE movies SET title = ?, description = ?, coverUrl = ? WHERE id = ?"
+                    "UPDATE theaters SET name = ?, location = ? WHERE id = ?"
             );
 
-            ps.setString(1, movie.getTitle());
-            ps.setString(2, movie.getDescription());
-            ps.setString(3, movie.getCoverUrl());
-            ps.setInt(4, movie.getId());
+            ps.setString(1, t.getName());
+            ps.setString(2, t.getLocation());
+            ps.setInt(3, t.getId());
 
             return ps.executeUpdate() > 0;
 
@@ -93,13 +92,13 @@ public class MovieRepository {
     public boolean delete(int id) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement ps =
-                    conn.prepareStatement("DELETE FROM movies WHERE id = ?");
+                    conn.prepareStatement("DELETE FROM theaters WHERE id = ?");
 
             ps.setInt(1, id);
 
             return ps.executeUpdate() > 0;
-        }
-        catch (Exception e) { e.printStackTrace(); }
+
+        } catch (Exception e) { e.printStackTrace(); }
 
         return false;
     }

@@ -4,49 +4,50 @@
  */
 package repository;
 
+
 import dao.Database;
-import model.Movie;
+import model.Offer;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieRepository {
+public class OfferRepository {
 
-    public List<Movie> getAll() {
-        List<Movie> movies = new ArrayList<>();
+    public List<Offer> getAll() {
+        List<Offer> list = new ArrayList<>();
 
         try (Connection conn = Database.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM movies");
+            PreparedStatement ps =
+                    conn.prepareStatement("SELECT * FROM offers");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                movies.add(new Movie(
+                list.add(new Offer(
                         rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getString("description"),
-                        rs.getString("coverUrl")
+                        rs.getString("text"),
+                        rs.getString("validUntil")
                 ));
             }
+
         } catch (Exception e) { e.printStackTrace(); }
 
-        return movies;
+        return list;
     }
 
-    public Movie getById(int id) {
+    public Offer getById(int id) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement ps =
-                    conn.prepareStatement("SELECT * FROM movies WHERE id = ? LIMIT 1");
+                    conn.prepareStatement("SELECT * FROM offers WHERE id = ? LIMIT 1");
 
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                return new Movie(
+                return new Offer(
                         rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getString("description"),
-                        rs.getString("coverUrl")
+                        rs.getString("text"),
+                        rs.getString("validUntil")
                 );
             }
 
@@ -55,15 +56,14 @@ public class MovieRepository {
         return null;
     }
 
-    public boolean add(Movie movie) {
+    public boolean add(Offer o) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(
-                    "INSERT INTO movies(title, description, coverUrl) VALUES (?, ?, ?)"
+                    "INSERT INTO offers(text, validUntil) VALUES (?, ?)"
             );
 
-            ps.setString(1, movie.getTitle());
-            ps.setString(2, movie.getDescription());
-            ps.setString(3, movie.getCoverUrl());
+            ps.setString(1, o.getText());
+            ps.setString(2, o.getValidUntil());
 
             return ps.executeUpdate() > 0;
 
@@ -72,16 +72,15 @@ public class MovieRepository {
         return false;
     }
 
-    public boolean update(Movie movie) {
+    public boolean update(Offer o) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(
-                    "UPDATE movies SET title = ?, description = ?, coverUrl = ? WHERE id = ?"
+                    "UPDATE offers SET text = ?, validUntil = ? WHERE id = ?"
             );
 
-            ps.setString(1, movie.getTitle());
-            ps.setString(2, movie.getDescription());
-            ps.setString(3, movie.getCoverUrl());
-            ps.setInt(4, movie.getId());
+            ps.setString(1, o.getText());
+            ps.setString(2, o.getValidUntil());
+            ps.setInt(3, o.getId());
 
             return ps.executeUpdate() > 0;
 
@@ -93,13 +92,13 @@ public class MovieRepository {
     public boolean delete(int id) {
         try (Connection conn = Database.getConnection()) {
             PreparedStatement ps =
-                    conn.prepareStatement("DELETE FROM movies WHERE id = ?");
+                    conn.prepareStatement("DELETE FROM offers WHERE id = ?");
 
             ps.setInt(1, id);
 
             return ps.executeUpdate() > 0;
-        }
-        catch (Exception e) { e.printStackTrace(); }
+
+        } catch (Exception e) { e.printStackTrace(); }
 
         return false;
     }

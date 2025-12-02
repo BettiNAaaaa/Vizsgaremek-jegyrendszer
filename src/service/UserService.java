@@ -30,4 +30,14 @@ public class UserService {
         User u = new User(0, username, PasswordHasher.hash(password), false);
         return repo.create(u);
     }
+
+    private static class SessionManager {
+
+        private static void startSession(String token, User user) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+
+        public SessionManager() {
+        }
+    }
 }
