@@ -9,5 +9,12 @@ package repository;
  * @author joska
  */
 public class TicketRepository {
+      public List<Ticket> getAll() {
+        List<Ticket> tickets = new ArrayList<>();
+
+        try (Connection conn = Database.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM tickets");
+            ResultSet rs = ps.executeQuery();
+
     
 }
