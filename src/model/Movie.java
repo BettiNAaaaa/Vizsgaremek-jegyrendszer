@@ -9,5 +9,20 @@ package model;
  * @author joska
  */
 public class Movie {
-    
+    private int id;
+    private String title;
+    private String description;
+    private String coverUrl;
+
+    public Movie() {}
+
+    public Movie(int id, String title, String description, String coverUrl) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.coverUrl = coverUrl;
+    }
+
+    // Getters/Setters
 }
+    

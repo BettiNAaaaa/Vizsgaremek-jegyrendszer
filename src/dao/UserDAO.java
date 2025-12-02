@@ -20,6 +20,10 @@ public class userDAO {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    public userDAO(Connection conn) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public void addUser(User user) throws SQLException {
         String sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(sql);

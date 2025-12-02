@@ -9,5 +9,7 @@ package model;
  * @author joska
  */
 public class Offer {
-    
+     private int id;
+    private String text;
+    private String validUntil;
 }

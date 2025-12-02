@@ -7,43 +7,53 @@ package model;
 
  
 public class User {
-    
     private int id;
-    private String name;
-    private String email;
-    private String password;
-    private String role;
+    private String username;
+    private String passwordHash;
+    private boolean isAdmin;
 
     public User() {}
 
-    public User(int id, String name, String email, String password) {
+    public User(int id, String username, String passwordHash, boolean isAdmin) {
         this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.isAdmin = isAdmin;
     }
 
     public User(int aInt, String string, String string0, String string1, String string2) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
 
-  
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    // Getters/Setters
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getPasswordHash() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getUsername() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public boolean isAdmin() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String getName() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String getEmail() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String getPassword() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
+    
+    
 
     
+   
 

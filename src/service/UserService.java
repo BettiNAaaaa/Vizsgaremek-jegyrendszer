@@ -4,42 +4,30 @@
  */
 package service;
 
-import dao.userDAO;
+import Security.PasswordHasher;
+import Security.SessionManager;
 import model.User;
+import repository.UserRepository;
+
+import java.util.UUID;
 
 public class UserService {
 
-    private userDAO userDao = new userDAO();
+    private final UserRepository repo = new UserRepository();
 
-    public User login(String email, String password) {
+    public String login(String username, String password) {
+        User user = repo.findByUsername(username);
 
-        User u = userDao.findByEmail(email);
+        if (user == null) return null;
+        if (!user.getPasswordHash().equals(PasswordHasher.hash(password))) return null;
 
-        if (u == null) return null;
-        if (!u.getPassword().equals(password)) return null;
-
-        return u;
+        String token = UUID.randomUUID().toString();
+        SessionManager.startSession(token, user);
+        return token;
     }
 
-    public boolean register(String name, String email, String password) {
-        if (userDao.findByEmail(email) != null) {
-            return false; // email foglalt
-        }
-
-        User u = new User();
-        u.setName(name);
-        u.setEmail(email);
-        u.setPassword(password);
-        u.setRole("USER");
-
-        return userDao.save(u);
-    }
-
-    public boolean isAdmin(User u) {
-        return u.getRole().equals("ADMIN");
-    }
-
-    public java.util.List<User> getAll() {
-        return userDao.findAll();
+    public boolean register(String username, String password) {
+        User u = new User(0, username, PasswordHasher.hash(password), false);
+        return repo.create(u);
     }
 }

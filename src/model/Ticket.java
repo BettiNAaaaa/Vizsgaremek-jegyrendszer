@@ -8,11 +8,6 @@ package model;
  *
  * @author joska
  */
-public class Theater {
-    
-     private int id;
-    private String name;
-    private String location;
+public class Ticket {
     
 }
-
