@@ -25,9 +25,9 @@ public class Jegyvasarlo {
             System.out.println(ok ? "Sikeres regisztráció" : "E-mail már létezik!");
 
      
-            User user = userService.login("teszt@valami.hu", "1234");
+            String user = userService.login("teszt@valami.hu", "1234");
             if (user != null) {
-                System.out.println("Sikeres bejelentkezés: " + user.getName());
+                System.out.println(user.getName() + "Sikeres bejelentkezés: ");
             } else {
                 System.out.println("Hibás e-mail vagy jelszó");
             }

@@ -6,7 +6,7 @@ package service;
 
 import model.Movie;
 import repository.MovieRepository;
-
+import api.MovieApiClient;
 
 import java.util.List;
 

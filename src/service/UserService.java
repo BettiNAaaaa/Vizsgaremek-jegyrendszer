@@ -6,6 +6,7 @@ package service;
 
 import Security.PasswordHasher;
 import Security.SessionManager;
+import dao.userDAO;
 import model.User;
 import repository.UserRepository;
 
@@ -13,7 +14,15 @@ import java.util.UUID;
 
 public class UserService {
 
+    public static boolean register(User newUser) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     private final UserRepository repo = new UserRepository();
+
+    public UserService(userDAO userDAO) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     public String login(String username, String password) {
         User user = repo.findByUsername(username);

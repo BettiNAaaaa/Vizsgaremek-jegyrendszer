@@ -9,5 +9,9 @@ package service;
  * @author joska
  */
 public class OfferService {
+
+    public boolean updateOffer(String text, String until) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
