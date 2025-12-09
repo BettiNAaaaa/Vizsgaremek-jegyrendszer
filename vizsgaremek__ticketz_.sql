@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: localhost:3306
--- Létrehozás ideje: 2025. Nov 29. 19:05
+-- Létrehozás ideje: 2025. Dec 09. 18:57
 -- Kiszolgáló verziója: 5.7.24
 -- PHP verzió: 8.3.1
 
@@ -25,6 +25,30 @@ DELIMITER $$
 --
 -- Eljárások
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cancel_full_order` (IN `p_order_id` INT)   BEGIN
+
+DECLARE v_exists INT;
+SELECT COUNT(*) INTO v_exists FROM orders WHERE id = p_order_id;
+
+IF v_exists = 0 THEN
+	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Order not found.';
+END IF;
+
+START TRANSACTION;
+
+UPDATE tickets t 
+JOIN bought_tickets bt ON bt.ticket_id = t.id
+SET t.status = 'available' WHERE bt.order_id = p_order_id;
+
+DELETE FROM bought_tickets WHERE oder_id = p_order_id;
+
+UPDATE orders 
+SET status = 'cancelled' WHERE id = p_order_id;
+
+COMMIT;
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cancel_reservation` (IN `p_ticket_id` INT)   BEGIN
 
 UPDATE tickets SET status = 'available' WHERE id = p_ticket_id AND status = 'reserved';
@@ -54,6 +78,49 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `create_cinema` (IN `p_name` VARCHAR
 
 INSERT INTO cinemas (name, city, address, phone, website)
 VALUES (p_name, p_city, p_address, p_phone, p_website);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `create_discount` (IN `p_code` VARCHAR(50), IN `p_description` VARCHAR(255), IN `p_discount_type` ENUM('percent','fixed'), IN `p_value` DECIMAL(10,2), IN `p_valid_from` DATE, IN `p_valid_to` DATE, IN `p_min_total` DECIMAL(10,2))   BEGIN
+
+INSERT INTO discounts (code, description, discount_type, value, valid_from, valid_to, min_total, is_active )
+VALUES (p_code, p_description, p_discount_type, p_value, p_valid_from, p_valid_to, p_min_total, 1);
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `create_full_order` (IN `p_user_id` INT, IN `p_ticket_id` INT)   BEGIN
+
+DECLARE v_price DECIMAL (10,2);
+DECLARE v_status VARCHAR(20);
+DECLARE v_order_id INT;
+
+SELECT price, status INTO v_price, v_status FROM tickets
+WHERE id = p_ticket_id
+LIMIT 1;
+
+IF v_price IS NULL THEN
+	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Ticket not found.";
+END IF;
+
+IF v_status <> 'available' THEN
+	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Ticket is not available.";
+END IF;
+
+
+START TRANSACTION;
+
+INSERT INTO orders (user_id, total, status, title)
+VALUES(p_user_id, v_price, 'paid', 'Online order');
+
+SET v_order_id = LAST_INSERT_ID();
+
+INSERT INTO bought_tickets (order_id, ticket_id, price)
+VALUES(v_order_id, p_ticket_id, v_price);
+
+UPDATE tickets
+SET STATUS = 'paid' WHERE id = p_ticket_id;
+
+COMMIT;
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `create_order_for_user_and_event` (IN `p_email` VARCHAR(190), IN `p_event_title` VARCHAR(200), IN `p_status` VARCHAR(20))   BEGIN
@@ -86,6 +153,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `create_theatre` (IN `p_name` VARCHA
 
 INSERT INTO theatres (name, city, address, phone, website)
 VALUES (p_name, p_city, p_address, p_phone, p_website);
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_active_discount_by_code` (IN `p_code` VARCHAR(50))   BEGIN
+
+SELECT id, code, description, discount_type, value, valid_from, valid_to, min_total, is_active, created FROM discounts WHERE code = p_code AND is_active = 1 AND (valid_from IS NULL OR valid_from <= CURDATE()) AND (valid_to IS NULL OR valid_to >= CURDATE());
 
 END$$
 
@@ -124,6 +197,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_event_revenue` (IN `p_event_id`
 SELECT e.title AS event_title, COUNT(bt.id) AS sold_tickets_count, IFNULL(SUM(bt.price),0) AS total_revenue FROM events e 
 LEFT JOIN tickets t ON t.event_id = e.id
 LEFT JOIN bought_tickets bt ON bt.ticket_id = t.id WHERE e.id = p_event_id;
+
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_favorites_for_user` (IN `p_user_id` INT)   BEGIN
+
+SELECT f.id AS favorite_id,  e.id AS event_id, e.title, e.type, e.start, e.end, e.room, f.created AS favorited_at FROM favorites f JOIN events e ON e.id = f.event_id WHERE f.user_id = p_user_id ORDER BY e.start;
 
 END$$
 
@@ -223,6 +302,15 @@ CREATE TABLE `bought_tickets` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- A tábla adatainak kiíratása `bought_tickets`
+--
+
+INSERT INTO `bought_tickets` (`id`, `order_id`, `ticket_id`, `price`, `created`) VALUES
+(1, 3, 9, '2990.00', '2025-11-26 08:17:19'),
+(2, 6, 10, '2990.00', '2025-11-26 08:22:02'),
+(3, 7, 1, '2990.00', '2025-12-09 12:39:50');
+
 -- --------------------------------------------------------
 
 --
@@ -243,7 +331,36 @@ CREATE TABLE `cinemas` (
 --
 
 INSERT INTO `cinemas` (`id`, `name`, `city`, `address`, `phone`, `website`) VALUES
-(1, 'Cinema City Aréna', 'Budapest', 'Kerepesi út 9', '06-1-234-5678', 'https://cinemacity.hu');
+(1, 'Cinema City Aréna', 'Budapest', 'Kerepesi út 9', '06-1-234-5678', 'https://cinemacity.hu'),
+(2, 'Apollo', 'Pécs', 'Perczel Miklós u. 22.', '06-70-286-8447', 'https://www.apollopecs.hu/');
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `discounts`
+--
+
+CREATE TABLE `discounts` (
+  `id` int(11) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `descreption` varchar(255) DEFAULT NULL,
+  `discount_type` enum('percent','fixed') NOT NULL,
+  `value` decimal(10,2) NOT NULL,
+  `valid_from` date DEFAULT NULL,
+  `valid_to` date DEFAULT NULL,
+  `min_total` decimal(10,2) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- A tábla adatainak kiíratása `discounts`
+--
+
+INSERT INTO `discounts` (`id`, `code`, `descreption`, `discount_type`, `value`, `valid_from`, `valid_to`, `min_total`, `is_active`, `created`) VALUES
+(1, 'STUDENT', '10% discount for students', 'percent', '10.00', '2025-01-01', '2025-12-31', '0.00', 1, '2025-12-09 10:10:17'),
+(2, 'SENIOR', '15% discount for people over 65 years old', 'percent', '15.00', '2025-01-01', '2026-01-01', '0.00', 1, '2025-12-09 10:10:17'),
+(3, 'EXPIRED1', 'Expired coupon for testing only', 'percent', '10.00', '2024-01-01', '2024-01-01', '0.00', 0, '2025-12-09 10:10:17');
 
 -- --------------------------------------------------------
 
@@ -276,6 +393,27 @@ INSERT INTO `events` (`id`, `title`, `room`, `type`, `start`, `end`, `seats`, `c
 -- --------------------------------------------------------
 
 --
+-- Tábla szerkezet ehhez a táblához `favorites`
+--
+
+CREATE TABLE `favorites` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- A tábla adatainak kiíratása `favorites`
+--
+
+INSERT INTO `favorites` (`id`, `user_id`, `event_id`) VALUES
+(4, 1, 7),
+(5, 1, 8),
+(6, 2, 9);
+
+-- --------------------------------------------------------
+
+--
 -- Tábla szerkezet ehhez a táblához `orders`
 --
 
@@ -295,7 +433,8 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `user_id`, `total`, `status`, `created`, `title`) VALUES
 (3, 1, '2990.00', 'paid', '2025-11-26 08:17:19', 'Avatar 3'),
 (5, 1, '2990.00', 'reserved', '2025-11-26 08:21:17', 'Jurassic World'),
-(6, 2, '2990.00', 'paid', '2025-11-26 08:22:02', 'Az operaház fantomja');
+(6, 2, '2990.00', 'paid', '2025-11-26 08:22:02', 'Az operaház fantomja'),
+(7, 1, '2990.00', 'paid', '2025-12-09 12:39:50', 'Online order');
 
 -- --------------------------------------------------------
 
@@ -332,6 +471,30 @@ CREATE TABLE `reviews` (
 -- --------------------------------------------------------
 
 --
+-- Tábla szerkezet ehhez a táblához `seat_map`
+--
+
+CREATE TABLE `seat_map` (
+  `id` int(11) NOT NULL,
+  `event_id` int(11) NOT NULL,
+  `row_label` varchar(10) NOT NULL,
+  `seat_number` int(11) NOT NULL,
+  `seat_label` varchar(20) NOT NULL,
+  `seat_type` enum('Normal','VIP','Premium') NOT NULL DEFAULT 'Normal'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- A tábla adatainak kiíratása `seat_map`
+--
+
+INSERT INTO `seat_map` (`id`, `event_id`, `row_label`, `seat_number`, `seat_label`, `seat_type`) VALUES
+(4, 7, 'A', 1, 'A1', 'VIP'),
+(5, 8, 'B', 1, 'B1', 'Normal'),
+(6, 9, 'C', 1, 'C1', 'Premium');
+
+-- --------------------------------------------------------
+
+--
 -- Tábla szerkezet ehhez a táblához `theatres`
 --
 
@@ -349,7 +512,8 @@ CREATE TABLE `theatres` (
 --
 
 INSERT INTO `theatres` (`id`, `name`, `city`, `address`, `phone`, `website`) VALUES
-(1, 'Vígszínház', 'Budapest', 'Szent István krt. 14.', '06-1-332-0888', 'https://vigszinhaz.hu');
+(1, 'Vígszínház', 'Budapest', 'Szent István krt. 14.', '06-1-332-0888', 'https://vigszinhaz.hu'),
+(2, 'Theatre Mohács', 'Mohács', 'Deák tér 6.', '06-30-010-8101', 'https://kossuthteatrum.hu/');
 
 -- --------------------------------------------------------
 
@@ -371,8 +535,10 @@ CREATE TABLE `tickets` (
 --
 
 INSERT INTO `tickets` (`id`, `event_id`, `seat_label`, `price`, `status`, `created`) VALUES
-(1, 7, 'A20', '2990.00', 'available', '2025-11-28 09:59:50'),
-(6, 8, 'B15', '2990.00', 'available', '2025-11-28 10:20:04');
+(1, 7, 'A20', '2990.00', 'paid', '2025-11-28 09:59:50'),
+(6, 8, 'B15', '2990.00', 'available', '2025-11-28 10:20:04'),
+(9, 7, 'B20', '2990.00', 'paid', '2025-12-09 10:25:40'),
+(10, 8, 'A30', '2990.00', 'paid', '2025-12-09 10:25:40');
 
 -- --------------------------------------------------------
 
@@ -437,6 +603,15 @@ ALTER TABLE `cinemas`
   ADD PRIMARY KEY (`id`);
 
 --
+-- A tábla indexei `discounts`
+--
+ALTER TABLE `discounts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `code` (`code`),
+  ADD KEY `idx_discounts_active` (`is_active`),
+  ADD KEY `idx_discounts_valid` (`valid_from`,`valid_to`);
+
+--
 -- A tábla indexei `events`
 --
 ALTER TABLE `events`
@@ -445,6 +620,15 @@ ALTER TABLE `events`
   ADD KEY `idx_type` (`type`),
   ADD KEY `fk_events_cinema` (`cinema_id`),
   ADD KEY `fk_events_theatre` (`theatre_id`);
+
+--
+-- A tábla indexei `favorites`
+--
+ALTER TABLE `favorites`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uniq_user_event_fav` (`user_id`,`event_id`),
+  ADD KEY `idx_fav_user` (`user_id`),
+  ADD KEY `idx_fav_event` (`event_id`);
 
 --
 -- A tábla indexei `orders`
@@ -470,6 +654,15 @@ ALTER TABLE `reviews`
   ADD UNIQUE KEY `uniq_user_event_review` (`user_id`,`event_id`),
   ADD KEY `idx_reviews_event` (`event_id`),
   ADD KEY `idx_reviews_user` (`user_id`);
+
+--
+-- A tábla indexei `seat_map`
+--
+ALTER TABLE `seat_map`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uniq_event_seat` (`event_id`,`seat_label`),
+  ADD KEY `idx_seatmap_event` (`event_id`),
+  ADD KEY `idx_seatmap_type` (`seat_type`);
 
 --
 -- A tábla indexei `theatres`
@@ -514,25 +707,37 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT a táblához `bought_tickets`
 --
 ALTER TABLE `bought_tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT a táblához `cinemas`
 --
 ALTER TABLE `cinemas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT a táblához `discounts`
+--
+ALTER TABLE `discounts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT a táblához `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT a táblához `favorites`
+--
+ALTER TABLE `favorites`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT a táblához `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT a táblához `payments`
@@ -547,22 +752,28 @@ ALTER TABLE `reviews`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT a táblához `seat_map`
+--
+ALTER TABLE `seat_map`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT a táblához `theatres`
 --
 ALTER TABLE `theatres`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT a táblához `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT a táblához `user_activity_log`
@@ -595,6 +806,13 @@ ALTER TABLE `events`
   ADD CONSTRAINT `fk_events_theatre` FOREIGN KEY (`theatre_id`) REFERENCES `theatres` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
+-- Megkötések a táblához `favorites`
+--
+ALTER TABLE `favorites`
+  ADD CONSTRAINT `fk_fav_event` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_fav_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Megkötések a táblához `orders`
 --
 ALTER TABLE `orders`
@@ -612,6 +830,12 @@ ALTER TABLE `payments`
 ALTER TABLE `reviews`
   ADD CONSTRAINT `fk_reviews_event` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_reviews_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Megkötések a táblához `seat_map`
+--
+ALTER TABLE `seat_map`
+  ADD CONSTRAINT `fk_seatmap_event` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Megkötések a táblához `tickets`
