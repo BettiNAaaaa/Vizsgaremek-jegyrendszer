@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: localhost:3306
--- Létrehozás ideje: 2025. Dec 09. 18:57
+-- Létrehozás ideje: 2025. Dec 12. 11:27
 -- Kiszolgáló verziója: 5.7.24
 -- PHP verzió: 8.3.1
 
@@ -308,8 +308,7 @@ CREATE TABLE `bought_tickets` (
 
 INSERT INTO `bought_tickets` (`id`, `order_id`, `ticket_id`, `price`, `created`) VALUES
 (1, 3, 9, '2990.00', '2025-11-26 08:17:19'),
-(2, 6, 10, '2990.00', '2025-11-26 08:22:02'),
-(3, 7, 1, '2990.00', '2025-12-09 12:39:50');
+(2, 6, 10, '2990.00', '2025-11-26 08:22:02');
 
 -- --------------------------------------------------------
 
@@ -433,8 +432,7 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `user_id`, `total`, `status`, `created`, `title`) VALUES
 (3, 1, '2990.00', 'paid', '2025-11-26 08:17:19', 'Avatar 3'),
 (5, 1, '2990.00', 'reserved', '2025-11-26 08:21:17', 'Jurassic World'),
-(6, 2, '2990.00', 'paid', '2025-11-26 08:22:02', 'Az operaház fantomja'),
-(7, 1, '2990.00', 'paid', '2025-12-09 12:39:50', 'Online order');
+(6, 2, '2990.00', 'paid', '2025-11-26 08:22:02', 'Az operaház fantomja');
 
 -- --------------------------------------------------------
 
@@ -449,9 +447,17 @@ CREATE TABLE `payments` (
   `transaction_ref` varchar(100) DEFAULT NULL,
   `amount` decimal(10,2) NOT NULL,
   `status` varchar(20) NOT NULL,
-  `paid_at` datetime DEFAULT NULL,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `paid_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- A tábla adatainak kiíratása `payments`
+--
+
+INSERT INTO `payments` (`id`, `order_id`, `provider`, `transaction_ref`, `amount`, `status`, `paid_at`) VALUES
+(7, 6, 'card', 'ABC-43235566-0001', '2990.00', 'success', '2025-12-12 11:43:29'),
+(8, 6, 'bank', 'ABC-43235566-0002', '2990.00', 'pending', NULL),
+(9, 6, 'paypal', 'ABC-43235566-0003', '2990.00', 'failed', '2025-12-12 11:43:29');
 
 -- --------------------------------------------------------
 
@@ -467,6 +473,15 @@ CREATE TABLE `reviews` (
   `comment` text,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- A tábla adatainak kiíratása `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `event_id`, `rating`, `comment`, `created`) VALUES
+(7, 1, 7, 5, 'Nagyon jó élmény volt!', '2025-12-12 11:17:20'),
+(8, 1, 8, 4, 'Tetszett, de a kezdés kicsit csúszott.', '2025-12-12 11:17:20'),
+(9, 2, 7, 3, 'A helyek kényelmetlenek voltak.', '2025-12-12 11:17:20');
 
 -- --------------------------------------------------------
 
@@ -576,6 +591,17 @@ CREATE TABLE `user_activity_log` (
   `description` text,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- A tábla adatainak kiíratása `user_activity_log`
+--
+
+INSERT INTO `user_activity_log` (`id`, `user_id`, `action`, `description`, `created`) VALUES
+(1, 1, 'REGISTER', 'User registered with email user@test.com.', '2025-12-12 11:22:35'),
+(2, 1, 'LOGIN', 'User logged in successfully.', '2025-12-12 11:22:35'),
+(3, 1, 'ADD_FAVORITE', 'User added an event to favorites.', '2025-12-12 11:22:35'),
+(4, 1, 'LOGOUT', 'User logged out.', '2025-12-12 11:22:35'),
+(5, 1, 'APPLY_DISCOUNT', 'User applied discount code STUDENT10.', '2025-12-12 11:22:35');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -743,13 +769,13 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT a táblához `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT a táblához `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT a táblához `seat_map`
@@ -779,7 +805,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `user_activity_log`
 --
 ALTER TABLE `user_activity_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Megkötések a kiírt táblákhoz
