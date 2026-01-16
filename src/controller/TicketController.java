@@ -4,6 +4,7 @@
  */
 package controller;
 
+<<<<<<< HEAD
 import dao.BookingDao;
 import dao.EventDao;
 import model.*;
@@ -35,4 +36,12 @@ Booking booking = new Booking(user, event, seatCount);
 bookingDao.save(booking);
 return booking;
  }
+=======
+/**
+ *
+ * @author joska
+ */
+public class TicketController {
+    
+>>>>>>> 23c7c33b0c2c533135f2f80a14ab31c31481f56e
 }

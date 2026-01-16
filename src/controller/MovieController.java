@@ -4,6 +4,7 @@
  */
 package controller;
 
+<<<<<<< HEAD
 import dao.EventDao;
 import model.Movie;
 import java.util.List;
@@ -27,3 +28,12 @@ public List getAllMovies() {
 return eventDao.findAll();
 }
 }
+=======
+/**
+ *
+ * @author joska
+ */
+public class MovieController {
+    
+}
+>>>>>>> 23c7c33b0c2c533135f2f80a14ab31c31481f56e

@@ -4,3 +4,52 @@
  */
 package service;
 
+<<<<<<< HEAD
+=======
+import Security.PasswordHasher;
+import Security.SessionManager;
+import dao.userDAO;
+import model.User;
+import repository.UserRepository;
+
+import java.util.UUID;
+
+public class UserService {
+
+    public static boolean register(User newUser) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private final UserRepository repo = new UserRepository();
+
+    public UserService(userDAO userDAO) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String login(String username, String password) {
+        User user = repo.findByUsername(username);
+
+        if (user == null) return null;
+        if (!user.getPasswordHash().equals(PasswordHasher.hash(password))) return null;
+
+        String token = UUID.randomUUID().toString();
+        SessionManager.startSession(token, user);
+        return token;
+    }
+
+    public boolean register(String username, String password) {
+        User u = new User(0, username, PasswordHasher.hash(password), false);
+        return repo.create(u);
+    }
+
+    private static class SessionManager {
+
+        private static void startSession(String token, User user) {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+
+        public SessionManager() {
+        }
+    }
+}
+>>>>>>> 23c7c33b0c2c533135f2f80a14ab31c31481f56e
