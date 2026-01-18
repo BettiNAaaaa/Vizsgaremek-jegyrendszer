@@ -6,12 +6,9 @@ package api;
 
 import controller.TicketController;
 import model.Booking;
-import user.User;
-import org.springframework.web.bind.annotation.*;
+import User.User;
 
 
-@RestController
-@RequestMapping("/api/tickets")
 public class TicketApi {
 
 
@@ -23,9 +20,8 @@ this.ticketController = ticketController;
 }
 
 
-@PostMapping("/book")
-public Booking bookTicket(@RequestParam int eventId,
-@RequestParam int seatCount) {
+// POST /tickets/book
+public Booking bookTicket(int eventId, int seatCount) {
 User user = new User(1, "Teszt Elek", "teszt@email.hu");
 return ticketController.bookTicket(eventId, user, seatCount);
 }

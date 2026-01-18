@@ -6,12 +6,9 @@ package api;
 
 import controller.MovieController;
 import model.Movie;
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RestController
-@RequestMapping("/api/movies")
 public class MovieApi {
 
 
@@ -23,14 +20,14 @@ this.movieController = movieController;
 }
 
 
-@PostMapping
-public void addMovie(@RequestBody Movie movie) {
-movieController.addMovie(movie);
+// GET movies
+public List getMovies() {
+return movieController.getAllMovies();
 }
 
 
-@GetMapping
-public List getAllMovies() {
-return movieController.getAllMovies();
+// POST /movies
+public void createMovie(Movie movie) {
+movieController.addMovie(movie);
 }
 }

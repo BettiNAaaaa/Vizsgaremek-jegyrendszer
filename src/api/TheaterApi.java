@@ -20,13 +20,13 @@ this.theaterController = theaterController;
 }
 
 
-// GET /theaters
+// GET 
 public List getTheaters() {
 return theaterController.getAllTheaters();
 }
 
 
-// POST /theaters
+// POST 
 public void createTheater(Theater theater) {
 theaterController.addTheater(theater);
 }
