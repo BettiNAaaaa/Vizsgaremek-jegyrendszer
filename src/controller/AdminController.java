@@ -4,19 +4,21 @@
  */
 package controller;
 
-import service.MovieService;
-import service.OfferService;
+import dao.EventDao;
+import model.Event;
+import java.util.List;
+
 
 public class AdminController {
+private EventDao eventDao;
 
-    private final MovieService movieService = new MovieService();
-    private final OfferService offerService = new OfferService();
 
-    public boolean addMovie(String title, String desc) {
-        return movieService.createMovie(title, desc);
-    }
+public AdminController(EventDao eventDao) {
+this.eventDao = eventDao;
+}
 
-    public boolean updateDailyOffer(String text, String until) {
-        return offerService.updateOffer(text, until);
-    }
+
+public List<Event> listAllEvents() {
+return eventDao.findAll();
+}
 }
