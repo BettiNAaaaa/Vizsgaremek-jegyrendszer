@@ -10,17 +10,17 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class userDao {
+public class UserDao {
     
     private Connection conn;
 
     
 
-    public userDao() {
+    public UserDao() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public userDao(Connection conn) {
+    public UserDao(Connection conn) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

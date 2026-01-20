@@ -15,12 +15,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // ===== DAO-k =====
+        // dao haha
         EventDao eventDao = new EventDao();
         BookingDao bookingDao = new BookingDao();
-        UserDao userDao = new UserDao ();
+        UserDao userDao = new UserDao();
 
-        // ===== Controllerek =====
+
+        // kontrollerek
         MovieController movieController = new MovieController(eventDao);
         TheaterController theaterController = new TheaterController(eventDao);
         TicketController ticketController = new TicketController(eventDao, bookingDao);
