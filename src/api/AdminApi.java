@@ -6,12 +6,9 @@ package api;
 
 import controller.AdminController;
 import model.Event;
-import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
-@RestController
-@RequestMapping("/api/admin")
 public class AdminApi {
 
 
@@ -23,8 +20,8 @@ this.adminController = adminController;
 }
 
 
-@GetMapping("/events")
-public List<Event> listAllEvents() {
+// GET 
+public List<Event> getAllEvents() {
 return adminController.listAllEvents();
 }
 }

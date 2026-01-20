@@ -5,22 +5,22 @@
 package dao;
 
 
-import model.User;
+import User.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class userDAO {
+public class userDao {
     
     private Connection conn;
 
     
 
-    public userDAO() {
+    public userDao() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public userDAO(Connection conn) {
+    public userDao(Connection conn) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
