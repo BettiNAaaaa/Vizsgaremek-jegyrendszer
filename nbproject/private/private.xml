@@ -19,8 +19,9 @@
             <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/api/MovieApi.java</file>
             <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/api/TheaterApi.java</file>
             <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/api/TicketApi.java</file>
-            <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/api/AdminApi.java</file>
-            <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/jegyvasarlo/Main.java</file>
+            <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/Main/Main.java</file>
+            <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/api/AuthApi.java</file>
+            <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/dao/UserDao.java</file>
         </group>
     </open-files>
 </project-private>

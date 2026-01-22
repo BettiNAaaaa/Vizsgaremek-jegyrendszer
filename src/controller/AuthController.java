@@ -4,17 +4,24 @@
  */
 package controller;
 
-import service.UserService;
+
+
+import dao.UserDao;
+import User.User;
 
 public class AuthController {
 
-    private final UserService userService = new UserService();
+    private UserDao userDao;
 
-    public String login(String username, String password) {
-        return userService.login(username, password);
+    public AuthController(UserDao userDao) {
+        this.userDao = userDao;
     }
 
-    public boolean register(String username, String password) {
-        return userService.register(username, password);
+    public User login(String username, String password) {
+        User user = userDao.findByUsername(username);
+        if (user == null || !user.getPassword().equals(password)) {
+            throw new IllegalArgumentException("Hibás felhasználónév vagy jelszó");
+        }
+        return user;
     }
 }
