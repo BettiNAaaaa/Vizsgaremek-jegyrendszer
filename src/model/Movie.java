@@ -4,45 +4,19 @@
  */
 package model;
 
-/**
- *
- * @author joska
- */
-public class Movie {
-    private int id;
-    private String title;
-    private String description;
-    private String coverUrl;
 
-    public Movie() {}
 
-    public Movie(int id, String title, String description, String coverUrl) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.coverUrl = coverUrl;
+public class Movie extends Event {
+
+    private int lengthMinutes;
+
+    // EZ A KONSTRUKTOR KELL A MAIN-BEN HASZNÁLTHOZ
+    public Movie(int id, String title, int availableSeats, int lengthMinutes) {
+        super(id, title, availableSeats);
+        this.lengthMinutes = lengthMinutes;
     }
 
-    // Getters/Setters
-
-    public int getId() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public String getCoverUrl() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public String getDescription() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public String getTitle() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public String getPosterUrl() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int getLengthMinutes() {
+        return lengthMinutes;
     }
 }
-    
