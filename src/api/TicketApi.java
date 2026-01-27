@@ -19,6 +19,10 @@ public TicketApi(TicketController ticketController) {
 this.ticketController = ticketController;
 }
 
+    public TicketApi(TicketController ticketController, User loggedUser) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 
 // POST /tickets/book
 public Booking bookTicket(int eventId, int seatCount) {

@@ -4,36 +4,34 @@
  */
 package model;
 
-/**
- *
- * @author joska
- */
-public class Event {
-     private int id;
-    private String text;
-    private String validUntil;
 
-    public Event(int aInt, String string, String string0) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+public abstract class Event {
+
+    protected int id;
+    protected String title;
+    protected int availableSeats;
+
+    public Event(int id, String title, int availableSeats) {
+        this.id = id;
+        this.title = title;
+        this.availableSeats = availableSeats;
     }
 
     public int getId() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return id;
     }
 
-    public String getValidUntil() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getTitle() {
+        return title;
     }
 
-    public String getText() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int getAvailableSeats() {
+        return availableSeats;
     }
 
-    String getTitle() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void bookSeat(int seatCount) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void bookSeat() {
+        if (availableSeats > 0) {
+            availableSeats--;
+        }
     }
 }

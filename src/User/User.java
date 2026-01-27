@@ -4,18 +4,28 @@
  */
 package User;
 
+
+
 public class User {
-private int id;
-private String name;
-private String email;
+    private int id;
+    private String name;
+    private String email;
+    private String username;
+    private String password;
+    private Role role;
 
+    public User(int id, String name, String email,
+                String username, String password, Role role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
-public User(int id, String name, String email) {
-this.id = id;
-this.name = name;
-this.email = email;
-}
-
-
-public String getName() { return name; }
+    public String getName() { return name; }
+    public String getUsername() { return username; }
+    public String getPassword() { return password; }
+    public Role getRole() { return role; }
 }

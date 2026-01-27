@@ -33,7 +33,7 @@ public class Main {
 
         // Login
         authApi.login("admin", "admin");   // próbáld ki: user / user
-        User loggedUser = authApi.getLoggedInUser();
+        var loggedUser = authApi.getLoggedInUser();
 
         // Film létrehozása
         MovieApi movieApi = new MovieApi(movieController);
@@ -45,8 +45,9 @@ public class Main {
 
         // Admin
         AdminApi adminApi = new AdminApi(adminController, loggedUser);
-        adminApi.getAllEvents().forEach(
-                e -> System.out.println(e.getTitle())
+        adminApi.getAllEvents().forEach(e -> {
+            System.out.println(e.getTitle());
+        }
         );
     }
 }

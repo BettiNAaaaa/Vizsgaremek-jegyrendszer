@@ -6,6 +6,7 @@ package dao;
 
 import model.Event;
 import java.util.*;
+import model.Theater;
 
 public class EventDao {
     private List<Event> events = new ArrayList<>();
@@ -23,5 +24,9 @@ public class EventDao {
                 .filter(e -> e.getId() == id)
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void save(Theater theater) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

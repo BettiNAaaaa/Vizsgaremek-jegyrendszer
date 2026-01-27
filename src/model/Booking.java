@@ -11,20 +11,20 @@ package model;
  */
 public class Booking {
     
-private User user;
+private User User;
 private Event event;
 private int seatCount;
 
 
 public Booking(User user, Event event, int seatCount) {
-this.user = user;
+this.User = user;
 this.event = event;
 this.seatCount = seatCount;
 }
 
 
 public String getSummary() {
-return user.getName() + " foglalt " + seatCount + " jegyet erre: " + event.getTitle();
+return User.getName() + " foglalt " + seatCount + " jegyet erre: " + event.getTitle();
 }
 }
 

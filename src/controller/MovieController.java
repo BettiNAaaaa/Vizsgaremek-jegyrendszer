@@ -8,6 +8,7 @@ package controller;
 import dao.EventDao;
 import model.Movie;
 import java.util.List;
+import model.Event;
 
 
 public class MovieController {
@@ -24,7 +25,7 @@ eventDao.save(movie);
 }
 
 
-public List getAllMovies() {
+public List<Event>  getAllMovies() {
 return eventDao.findAll();
 }
 }

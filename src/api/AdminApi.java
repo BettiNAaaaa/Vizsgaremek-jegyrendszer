@@ -4,6 +4,7 @@
  */
 package api;
 
+import User.User;
 import controller.AdminController;
 import model.Event;
 import java.util.List;
@@ -18,6 +19,10 @@ private AdminController adminController;
 public AdminApi(AdminController adminController) {
 this.adminController = adminController;
 }
+
+    public AdminApi(AdminController adminController, User loggedUser) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 
 // GET 
