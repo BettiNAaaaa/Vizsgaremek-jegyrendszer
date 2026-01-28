@@ -6,28 +6,34 @@ package api;
 
 import controller.MovieController;
 import model.Movie;
-import java.util.List;
+import User.User;
+import User.Role;
 
+import java.util.List;
 
 public class MovieApi {
 
+    private MovieController movieController;
+    private User loggedInUser;
 
-private MovieController movieController;
+    public MovieApi(MovieController movieController) {
+        this.movieController = movieController;
+    }
 
+    public void setLoggedInUser(User user) {
+        this.loggedInUser = user;
+    }
 
-public MovieApi(MovieController movieController) {
-this.movieController = movieController;
-}
+    // GET /movies
+    public List<Movie> getAllMovies() {
+        return movieController.getAllMovies();
+    }
 
-
-// GET movies
-public List getMovies() {
-return movieController.getAllMovies();
-}
-
-
-// POST /movies
-public void createMovie(Movie movie) {
-movieController.addMovie(movie);
-}
+    // POST /movies (ADMIN)
+    public void createMovie(Movie movie) {
+        if (loggedInUser.getRole() != Role.ADMIN) {
+            throw new RuntimeException("Nincs jogosultság");
+        }
+        movieController.createMovie(movie);
+    }
 }

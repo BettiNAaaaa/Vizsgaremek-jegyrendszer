@@ -4,31 +4,19 @@
  */
 package model;
 
-/**
- *
- * @author joska
- */
-public class Theater {
-    
-     private int id;
-    private String name;
-    private String location;
 
-    public Theater(int aInt, String string, String string0) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
-    public String getName() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
-    public String getLocation() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+public class Theater extends Event {
 
-    public int getId() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    /**
+     * Színházi előadás létrehozása
+     *
+     * @param id az előadás azonosítója
+     * @param title az előadás címe
+     * @param availableSeats elérhető helyek száma
+     */
+    public Theater(int id, String title, int availableSeats) {
+        super(id, title, availableSeats);
     }
-    
 }
-

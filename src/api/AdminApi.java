@@ -4,29 +4,38 @@
  */
 package api;
 
-import User.User;
-import controller.AdminController;
-import model.Event;
-import java.util.List;
 
+
+import controller.AdminController;
+import User.User;
+import User.Role;
 
 public class AdminApi {
 
+    private AdminController adminController;
+    private User loggedInUser;
 
-private AdminController adminController;
-
-
-public AdminApi(AdminController adminController) {
-this.adminController = adminController;
-}
-
-    public AdminApi(AdminController adminController, User loggedUser) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public AdminApi(AdminController adminController) {
+        this.adminController = adminController;
     }
 
+    public void setLoggedInUser(User user) {
+        this.loggedInUser = user;
+    }
 
-// GET 
-public List<Event> getAllEvents() {
-return adminController.listAllEvents();
-}
+    // DELETE /movies/{id}
+    public void deleteMovie(int id) {
+        if (loggedInUser.getRole() != Role.ADMIN) {
+            throw new RuntimeException("Nincs jogosultság");
+        }
+        adminController.deleteMovie(id);
+    }
+
+    // DELETE /theaters/{id}
+    public void deleteTheater(int id) {
+        if (loggedInUser.getRole() != Role.ADMIN) {
+            throw new RuntimeException("Nincs jogosultság");
+        }
+        adminController.deleteTheater(id);
+    }
 }

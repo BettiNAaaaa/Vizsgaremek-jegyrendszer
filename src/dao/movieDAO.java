@@ -9,7 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class movieDAO {
+public class MovieDao {
     public List<Movie> getAllMovies() {
         List<Movie> list = new ArrayList<>();
         String sql = "SELECT * FROM movies";

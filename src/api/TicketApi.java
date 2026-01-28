@@ -5,28 +5,28 @@
 package api;
 
 import controller.TicketController;
+import model.Event;
 import model.Booking;
 import User.User;
 
-
 public class TicketApi {
 
+    private TicketController ticketController;
+    private User loggedInUser;
 
-private TicketController ticketController;
-
-
-public TicketApi(TicketController ticketController) {
-this.ticketController = ticketController;
-}
-
-    public TicketApi(TicketController ticketController, User loggedUser) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public TicketApi(TicketController ticketController) {
+        this.ticketController = ticketController;
     }
 
+    public void setLoggedInUser(User user) {
+        this.loggedInUser = user;
+    }
 
-// POST /tickets/book
-public Booking bookTicket(int eventId, int seatCount) {
-User user = new User(1, "Teszt Elek", "teszt@email.hu");
-return ticketController.bookTicket(eventId, user, seatCount);
-}
+    // POST /tickets
+    public Booking bookTicket(Event event) {
+        if (loggedInUser == null) {
+            throw new RuntimeException("Nincs bejelentkezve");
+        }
+        return ticketController.bookTicket(loggedInUser, event);
+    }
 }

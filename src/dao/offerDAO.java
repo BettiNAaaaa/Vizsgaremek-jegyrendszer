@@ -8,6 +8,6 @@ package dao;
  *
  * @author joska
  */
-public class offerDAO {
+public class OfferDao {
     
 }

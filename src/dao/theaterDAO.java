@@ -8,6 +8,6 @@ package dao;
  *
  * @author joska
  */
-public class theaterDAO {
+public class TheaterDao {
     
 }
