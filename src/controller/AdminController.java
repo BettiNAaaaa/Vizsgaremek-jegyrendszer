@@ -5,20 +5,14 @@
 package controller;
 
 import dao.EventDao;
+import dao.MovieDao;
+import dao.TheaterDao;
 import model.Event;
-import java.util.List;
+
 
 
 public class AdminController {
-private EventDao eventDao;
-
-
-public AdminController(EventDao eventDao) {
-this.eventDao = eventDao;
-}
-
-
-public List<Event> listAllEvents() {
-return eventDao.findAll();
-}
+    
+    private MovieDao movieDao;
+    private TheaterDao theaterDao;
 }

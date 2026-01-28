@@ -10,7 +10,7 @@ import api.*;
 import controller.*;
 import dao.*;
 import model.*;
-import user.*;
+import User.*;
 
 public class Main {
 
@@ -38,10 +38,10 @@ public class Main {
 
         // ===== FELHASZNÁLÓK FELVÉTELE =====
         user admin = new user(1, "Admin", "admin@mozi.hu", "admin", "admin", Role.ADMIN);
-        user user = new User(2, "User", "user@mozi.hu", "user", "user", Role.USER);
+        User User = new User(2, "User", "user@mozi.hu", "user", "user", Role.USER);
 
         userDao.add(admin);
-        userDao.add(user);
+        userDao.add(User);
 
         // ===== ADMIN BELÉPÉS =====
         System.out.println("ADMIN bejelentkezés...");
