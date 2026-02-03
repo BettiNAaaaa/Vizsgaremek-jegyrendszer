@@ -80,9 +80,11 @@ public class Main {
         Movie selectedMovie = movieApi.getAllMovies().get(0);
         Booking booking = ticketApi.bookTicket(selectedMovie);
 
-        System.out.println("\nJegyfoglalás sikeres:");
-        System.out.println("Felhasználó: " + booking.getUser().getName());
-        System.out.println("Esemény: " + booking.getEvent().getTitle());
+        System.out.println(
+         " | Esemény: "
+           + "Felhasználó: " + booking.getUser().getName()+ booking.getEvent().getTitle()
+                                                           );
+
     }
 }
 

@@ -4,14 +4,40 @@
  */
 package model;
 
-
-
-
-
-
-public class Movie extends Event {
-
-    public Movie(int id, String title, int availableSeats) {
-        super(id, title, availableSeats);
-    }
+/**
+ *
+ * @author HP
+ */
+public class Movie {
+    
+   private int id;
+   private String title;
+   private int availableSeats;
+   
+   
+   public Movie(int id,String title, int availableSeats){
+       this.id=id;
+       this.title=title;
+       this.availableSeats=availableSeats;
+       
+   }
+   
+   public int getId() {
+       return id;
+   }
+   
+   public String getTitle(){
+       return title;
+   }
+   
+   public int getAvailableSeats(){
+           return availableSeats;
+   }
+   
+   public void bookSeat(){
+       if (availableSeats > 0) {
+           availableSeats--;
+       }
+   }
+    
 }

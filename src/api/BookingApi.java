@@ -6,7 +6,7 @@ package api;
 
 import controller.*;
 import model.*;
-import User.User;
+import model.User;
 import controller.BookingController;
 import controller.EventController;
 
