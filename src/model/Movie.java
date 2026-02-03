@@ -6,21 +6,12 @@ package model;
 
 
 
+
+
+
 public class Movie extends Event {
 
-    private int lengthMinutes;
-
-    // EZ A KONSTRUKTOR KELL A MAIN-BEN HASZNÁLTHOZ
-    public Movie(int id, String title, int availableSeats, int lengthMinutes) {
-        super(id, title, availableSeats);
-        this.lengthMinutes = lengthMinutes;
-    }
-
     public Movie(int id, String title, int availableSeats) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public int getLengthMinutes() {
-        return lengthMinutes;
+        super(id, title, availableSeats);
     }
 }
