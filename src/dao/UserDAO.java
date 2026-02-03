@@ -30,4 +30,14 @@ public class UserDao {
     public List<User> getAll() {
         return users;
     }
+    
+    public boolean deleteByUsername(String username){
+    User user = findByUsername(username);
+    if user (!=null){
+        users.remove(user);
+        return true;
+        }
+    return false;
 }
+} 
+

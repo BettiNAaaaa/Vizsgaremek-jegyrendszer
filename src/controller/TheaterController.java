@@ -5,6 +5,7 @@
 package controller;
 
 import dao.EventDao;
+import dao.TheaterDao;
 import model.Theater;
 import java.util.List;
 
@@ -16,6 +17,10 @@ private EventDao eventDao;
 public TheaterController(EventDao eventDao) {
 this.eventDao = eventDao;
 }
+
+    public TheaterController(TheaterDao theaterDao) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 
 public void addTheater(Theater theater) {

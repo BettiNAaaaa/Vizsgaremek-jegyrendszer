@@ -16,6 +16,10 @@ public class Movie extends Event {
         this.lengthMinutes = lengthMinutes;
     }
 
+    public Movie(int id, String title, int availableSeats) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public int getLengthMinutes() {
         return lengthMinutes;
     }

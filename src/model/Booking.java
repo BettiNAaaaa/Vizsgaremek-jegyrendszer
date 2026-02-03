@@ -26,5 +26,9 @@ this.seatCount = seatCount;
 public String getSummary() {
 return User.getName() + " foglalt " + seatCount + " jegyet erre: " + event.getTitle();
 }
+
+    public Object getUser() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
 

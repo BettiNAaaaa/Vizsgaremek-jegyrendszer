@@ -7,7 +7,7 @@ package api;
 import controller.MovieController;
 import model.Movie;
 import User.User;
-import User.Role;
+import model.Role;
 
 import java.util.List;
 

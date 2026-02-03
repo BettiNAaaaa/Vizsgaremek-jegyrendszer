@@ -7,7 +7,10 @@ package controller;
 import dao.EventDao;
 import dao.MovieDao;
 import dao.TheaterDao;
+import dao.UserDao;
 import model.Event;
+import model.Movie;
+import model.Theater;
 
 
 
@@ -15,4 +18,34 @@ public class AdminController {
     
     private MovieDao movieDao;
     private TheaterDao theaterDao;
+    private UserDao userDao;
+
+    public AdminController(MovieDao movieDao,
+                           TheaterDao theaterDao,
+                           UserDao userDao) {
+        this.movieDao = movieDao;
+        this.theaterDao = theaterDao;
+        this.userDao = userDao;
+    }
+
+    // ===== MOVIE =====
+
+    public void addMovie(int id, String title, int availableSeats) {
+        Movie movie = new Movie(id, title, availableSeats);
+        movieDao.add(movie);
+    }
+
+    // ===== THEATER =====
+
+    public void addTheater(int id, String title, int availableSeats) {
+        Theater theater = new Theater(id, title, availableSeats);
+        theaterDao.add(theater);
+    }
+
+    // ===== USER =====
+
+    public boolean deleteUser(String username) {
+        return userDao.deleteByUsername(username);
+    }
+    
 }

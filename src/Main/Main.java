@@ -5,12 +5,11 @@
 package Main;
 
 
-import User.Role;
+import model.Role;
 import api.*;
 import controller.*;
 import dao.*;
 import model.*;
-import User.*;
 
 public class Main {
 
@@ -26,7 +25,7 @@ public class Main {
         MovieController movieController = new MovieController(movieDao);
         TheaterController theaterController = new TheaterController(theaterDao);
         TicketController ticketController = new TicketController(bookingDao);
-        AdminController adminController = new AdminController(movieDao, theaterDao);
+        AdminController adminController = new AdminController(movieDao, theaterDao, userDao);
         AuthController authController = new AuthController(userDao);
 
         // ===== API RÉTEG =====
@@ -37,11 +36,11 @@ public class Main {
         AuthApi authApi = new AuthApi(authController);
 
         // ===== FELHASZNÁLÓK FELVÉTELE =====
-        user admin = new user(1, "Admin", "admin@mozi.hu", "admin", "admin", Role.ADMIN);
-        User User = new User(2, "User", "user@mozi.hu", "user", "user", Role.USER);
+        User admin = new User(1, "Admin", "admin@mozi.hu", "admin", "admin", Role.ADMIN);
+        User user = new User(2, "User", "user@mozi.hu", "user", "user", Role.USER);
 
         userDao.add(admin);
-        userDao.add(User);
+        userDao.add(user);
 
         // ===== ADMIN BELÉPÉS =====
         System.out.println("ADMIN bejelentkezés...");

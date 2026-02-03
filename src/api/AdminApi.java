@@ -8,7 +8,7 @@ package api;
 
 import controller.AdminController;
 import User.User;
-import User.Role;
+import model.Role;
 
 public class AdminApi {
 

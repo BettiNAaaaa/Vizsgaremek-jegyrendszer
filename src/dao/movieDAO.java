@@ -45,6 +45,10 @@ public class MovieDao {
         } catch (SQLException e) {
         }
     }
+
+    public void add(Movie movie) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
     
 

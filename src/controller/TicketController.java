@@ -20,6 +20,10 @@ this.eventDao = eventDao;
 this.bookingDao = bookingDao;
 }
 
+    public TicketController(BookingDao bookingDao) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 
 public Booking bookTicket(int eventId, User user, int seatCount) {
 Event event = eventDao.findById(eventId);

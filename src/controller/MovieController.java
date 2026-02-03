@@ -6,6 +6,7 @@ package controller;
 
 
 import dao.EventDao;
+import dao.MovieDao;
 import model.Movie;
 import java.util.List;
 import model.Event;
@@ -18,6 +19,10 @@ private EventDao eventDao;
 public MovieController(EventDao eventDao) {
 this.eventDao = eventDao;
 }
+
+    public MovieController(MovieDao movieDao) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 
 public void addMovie(Movie movie) {
