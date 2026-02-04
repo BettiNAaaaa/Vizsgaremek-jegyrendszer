@@ -6,7 +6,7 @@ package api;
 
 import controller.TheaterController;
 import model.Theater;
-import User.User;
+import model.User;
 import model.Role;
 
 import java.util.List;

@@ -7,7 +7,8 @@ package api;
 import controller.TicketController;
 import model.Event;
 import model.Booking;
-import User.User;
+import model.User;
+import model.Movie;
 
 public class TicketApi {
 
@@ -28,5 +29,9 @@ public class TicketApi {
             throw new RuntimeException("Nincs bejelentkezve");
         }
         return ticketController.bookTicket(loggedInUser, event);
+    }
+
+    public Booking bookTicket(Movie selectedMovie) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

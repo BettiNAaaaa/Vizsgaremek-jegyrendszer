@@ -74,7 +74,7 @@ public class Main {
         authApi.login("user", "user");
 
         var loggedUser = authApi.getLoggedInUser();
-        ticketApi.setLoggedInUser(loggedUser);
+        ticketApi.setLoggedInUser((User) loggedUser);
 
         // jegyfoglalás
         Movie selectedMovie = movieApi.getAllMovies().get(0);

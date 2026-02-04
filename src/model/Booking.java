@@ -5,30 +5,39 @@
 package model;
 
 
-/**
- *
- * @author HP
- */
+
+
 public class Booking {
-    
-private User User;
-private Event event;
-private int seatCount;
 
+    private User user;
+    private Event event;
+    private int seatCount;
 
-public Booking(User user, Event event, int seatCount) {
-this.User = user;
-this.event = event;
-this.seatCount = seatCount;
-}
+    public Booking(User user, Event event, int seatCount) {
+        this.user = user;
+        this.event = event;
+        this.seatCount = seatCount;
+    }
 
+    public User getUser() {
+        return user;
+    }
 
-public String getSummary() {
-return User.getName() + " foglalt " + seatCount + " jegyet erre: " + event.getTitle();
-}
+    public Event getEvent() {
+        return event;
+    }
 
-    public Object getUser() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public int getSeatCount() {
+        return seatCount;
+    }
+
+    public String getSummary() {
+        return user.getName()
+                + " foglalt "
+                + seatCount
+                + " jegyet erre: "
+                + event.getTitle();
     }
 }
+
 
