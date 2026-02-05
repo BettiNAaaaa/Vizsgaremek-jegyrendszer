@@ -7,7 +7,7 @@ package api;
 
 
 import controller.AuthController;
-import User.User;
+import model.User;
 
 public class AuthApi {
 
@@ -18,7 +18,7 @@ public class AuthApi {
     }
 
     // POST /login
-    public boolean login(String username, String password) {
+    public User login(String username, String password) {
         return authController.login(username, password);
     }
 

@@ -4,10 +4,16 @@
  */
 package controller;
 
+import model.Event;
+
 /**
  *
  * @author HP
  */
 public class EventController {
+
+    public Event findEventById(int eventId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

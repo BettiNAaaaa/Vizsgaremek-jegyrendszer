@@ -33,4 +33,12 @@ eventDao.save(movie);
 public List<Event>  getAllMovies() {
 return eventDao.findAll();
 }
+
+    public void createMovie(Movie movie) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Movie getMovieById(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

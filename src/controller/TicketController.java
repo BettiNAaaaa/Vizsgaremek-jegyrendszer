@@ -7,7 +7,7 @@ package controller;
 import dao.BookingDao;
 import dao.EventDao;
 import model.*;
-import User.User;
+import model.User;
 
 
 public class TicketController {
@@ -35,4 +35,8 @@ Booking booking = new Booking(user, event, seatCount);
 bookingDao.save(booking);
 return booking;
 }
+
+    public Booking bookTicket(User loggedInUser, Event event) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

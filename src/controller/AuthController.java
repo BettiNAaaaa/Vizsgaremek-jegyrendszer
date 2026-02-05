@@ -7,7 +7,7 @@ package controller;
 
 
 import dao.UserDao;
-import User.User;
+import model.User;
 
 public class AuthController {
 
@@ -18,10 +18,14 @@ public class AuthController {
     }
 
     public User login(String username, String password) {
-        User user = userDao.findByUsername(username);
+        User user = (User) userDao.findByUsername(username);
         if (user == null || !user.getPassword().equals(password)) {
             throw new IllegalArgumentException("Hibás felhasználónév vagy jelszó");
         }
         return user;
+    }
+
+    public User getLoggedInUser() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

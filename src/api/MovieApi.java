@@ -6,10 +6,11 @@ package api;
 
 import controller.MovieController;
 import model.Movie;
-import User.User;
+import model.User;
 import model.Role;
 
 import java.util.List;
+import model.Event;
 
 public class MovieApi {
 
@@ -25,7 +26,7 @@ public class MovieApi {
     }
 
     // GET /movies
-    public List<Movie> getAllMovies() {
+    public List<Event> getAllMovies() {
         return movieController.getAllMovies();
     }
 
@@ -36,4 +37,6 @@ public class MovieApi {
         }
         movieController.createMovie(movie);
     }
+
+ 
 }

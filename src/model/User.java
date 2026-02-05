@@ -29,6 +29,10 @@ public class User {
         this.role = role;
     }
 
+    public User(int i, String teszt_Elek, String tesztemailhu) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
    
 
     public int getId() {

@@ -47,5 +47,13 @@ public class AdminController {
     public boolean deleteUser(String username) {
         return userDao.deleteByUsername(username);
     }
+
+    public void deleteMovie(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void deleteTheater(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

@@ -5,7 +5,8 @@
 package Main;
 
 
-import model.Role;
+
+
 import api.*;
 import controller.*;
 import dao.*;
@@ -15,76 +16,70 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Dao réteg
+        // dao r
+        UserDao userDao = new UserDao();
         MovieDao movieDao = new MovieDao();
         TheaterDao theaterDao = new TheaterDao();
         BookingDao bookingDao = new BookingDao();
-        UserDao userDao = new UserDao();
 
         // kontroller
+        AuthController authController = new AuthController(userDao);
         MovieController movieController = new MovieController(movieDao);
         TheaterController theaterController = new TheaterController(theaterDao);
         TicketController ticketController = new TicketController(bookingDao);
-        AdminController adminController = new AdminController(movieDao, theaterDao, userDao);
-        AuthController authController = new AuthController(userDao);
+        AdminController adminController = new AdminController(userDao);
 
-        // apik xd
+        // apik
+        AuthApi authApi = new AuthApi(authController);
         MovieApi movieApi = new MovieApi(movieController);
         TheaterApi theaterApi = new TheaterApi(theaterController);
         TicketApi ticketApi = new TicketApi(ticketController);
         AdminApi adminApi = new AdminApi(adminController);
-        AuthApi authApi = new AuthApi(authController);
 
-        // felhasználok felvétele
+        // felhasznalok=
         User admin = new User(1, "Admin", "admin@mozi.hu", "admin", "admin", Role.ADMIN);
         User user = new User(2, "User", "user@mozi.hu", "user", "user", Role.USER);
 
         userDao.add(admin);
         userDao.add(user);
 
-        // Admin bejelentkezes
+        // admin bejelenkezes
         System.out.println("ADMIN bejelentkezés...");
         authApi.login("admin", "admin");
 
-        var loggedAdmin = authApi.getLoggedInUser();
+        User loggedAdmin = authApi.getLoggedInUser();
         movieApi.setLoggedInUser(loggedAdmin);
         theaterApi.setLoggedInUser(loggedAdmin);
-        adminApi.setLoggedInUser((User) loggedAdmin);
+        adminApi.setLoggedInUser(loggedAdmin);
 
         // adatok felvetele
         movieApi.createMovie(new Movie(1, "Dűne", 100));
-        movieApi.createMovie(new Movie(2, "Mátrix", 80 ));
+        movieApi.createMovie(new Movie(2, "Mátrix", 80));
 
         theaterApi.createTheater(new Theater(1, "Hamlet", 60));
-        theaterApi.createTheater(new Theater(2, "Bánk bán", 50));
 
-        // listázások
-        System.out.println("\nFilmek:");
-        movieApi.getAllMovies().forEach(m ->
-                System.out.println(m.getTitle())
-        );
-
-        System.out.println("\nSzínházi előadások:");
-        theaterApi.getAllTheaters().forEach(t ->
-                System.out.println(t.getTitle())
-        );
-
-        // felhasználó belépés
+        // felhasznalo bejelenkezes
         System.out.println("\nUSER bejelentkezés...");
         authApi.login("user", "user");
 
-        var loggedUser = authApi.getLoggedInUser();
-        ticketApi.setLoggedInUser((User) loggedUser);
+        User loggedUser = authApi.getLoggedInUser();
+        ticketApi.setLoggedInUser(loggedUser);
 
-        // jegyfoglalás
-        Movie selectedMovie = movieApi.getAllMovies().get(0);
+        // jegyfoglalas
+        Movie selectedMovie = movieController.getMovieById(1);
         Booking booking = ticketApi.bookTicket(selectedMovie);
 
         System.out.println(
-         " | Esemény: "
-           + "Felhasználó: " + booking.getUser().getName()+ booking.getEvent().getTitle()
-                                                           );
+                "Felhasználó: " + booking.getUser().getName()
+                + " | Esemény: " + booking.getEvent().getTitle()
+        );
 
+        // admin torles teszt
+        System.out.println("\nAdmin törli a felhasználót...");
+        authApi.login("admin", "admin");
+        adminApi.setLoggedInUser(authApi.getLoggedInUser());
+        adminApi.deleteUser(2);
+
+        System.out.println("Felhasználó törölve.");
     }
 }
-
