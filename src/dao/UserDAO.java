@@ -6,7 +6,7 @@ package dao;
 
 
 
-import User.User;
+import model.User;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,13 +31,25 @@ public class UserDao {
         return users;
     }
     
-    public boolean deleteByUsername(String username){
-    User user = findByUsername(username);
-    if user (!=null){
+    public boolean deleteUser(int id) {
+    User user = findById(id);
+
+    if (user != null) {
         users.remove(user);
         return true;
-        }
+    }
+
     return false;
 }
-} 
+
+    private User findById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public boolean deleteByUsername(String username) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+}
+
 

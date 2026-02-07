@@ -34,4 +34,8 @@ public abstract class Event {
             availableSeats--;
         }
     }
+
+    public void bookSeat(int seats) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

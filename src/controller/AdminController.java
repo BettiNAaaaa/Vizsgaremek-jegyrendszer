@@ -4,11 +4,9 @@
  */
 package controller;
 
-import dao.EventDao;
 import dao.MovieDao;
 import dao.TheaterDao;
 import dao.UserDao;
-import model.Event;
 import model.Movie;
 import model.Theater;
 
@@ -26,6 +24,10 @@ public class AdminController {
         this.movieDao = movieDao;
         this.theaterDao = theaterDao;
         this.userDao = userDao;
+    }
+
+    public AdminController(UserDao userDao) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     // ===== MOVIE =====

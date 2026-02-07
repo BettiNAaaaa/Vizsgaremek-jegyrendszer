@@ -6,6 +6,7 @@ package dao;
 
 import model.Event;
 import java.util.*;
+import model.Movie;
 import model.Theater;
 
 public class EventDao {
@@ -27,6 +28,10 @@ public class EventDao {
     }
 
     public void save(Theater theater) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void save(Movie movie) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

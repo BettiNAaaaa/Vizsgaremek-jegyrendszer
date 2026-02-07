@@ -31,4 +31,8 @@ eventDao.save(theater);
 public List getAllTheaters() {
 return eventDao.findAll();
 }
+
+    public void createTheater(Theater theater) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
