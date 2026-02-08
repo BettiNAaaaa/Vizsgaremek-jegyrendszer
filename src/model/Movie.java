@@ -13,12 +13,14 @@ public class Movie {
    private int id;
    private String title;
    private int availableSeats;
+   private String posterUrl;
    
    
-   public Movie(int id,String title, int availableSeats){
+   public Movie(int id,String title, int availableSeats, String posterUrl){
        this.id=id;
        this.title=title;
        this.availableSeats=availableSeats;
+       this.posterUrl=posterUrl;
        
    }
    
@@ -41,7 +43,7 @@ public class Movie {
    }
 
     public String getPosterUrl() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return posterUrl;
     }
     
 }

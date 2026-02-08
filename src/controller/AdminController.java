@@ -18,9 +18,7 @@ public class AdminController {
     private TheaterDao theaterDao;
     private UserDao userDao;
 
-    public AdminController(MovieDao movieDao,
-                           TheaterDao theaterDao,
-                           UserDao userDao) {
+    public AdminController(MovieDao movieDao,TheaterDao theaterDao,UserDao userDao) {
         this.movieDao = movieDao;
         this.theaterDao = theaterDao;
         this.userDao = userDao;

@@ -5,40 +5,24 @@
 package controller;
 
 
-import dao.EventDao;
+
+
 import dao.MovieDao;
 import model.Movie;
-import java.util.List;
-import model.Event;
-
 
 public class MovieController {
-private EventDao eventDao;
 
-
-public MovieController(EventDao eventDao) {
-this.eventDao = eventDao;
-}
+    private MovieDao movieDao;
 
     public MovieController(MovieDao movieDao) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.movieDao = movieDao;
     }
-
-
-public void addMovie(Movie movie) {
-eventDao.save(movie);
-}
-
-
-public List<Event>  getAllMovies() {
-return eventDao.findAll();
-}
 
     public void createMovie(Movie movie) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        movieDao.add(movie);
     }
 
-    public Movie getMovieById(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Movie getMovieById(int id) {
+        return movieDao.findById(id);
     }
 }

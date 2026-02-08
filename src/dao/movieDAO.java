@@ -22,7 +22,7 @@ public class MovieDao {
                 list.add(new Movie(
                         rs.getInt("id"),
                         rs.getString("title"),
-                        rs.getString("poster_url")
+                        rs.getInt("poster_url")
                 ));
             }
 
