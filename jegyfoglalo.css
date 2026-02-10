@@ -1,0 +1,121 @@
+﻿body{
+    background-color: #ffeacd;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.main-wrapper{
+    max-height: 1600px;
+    margin: 0 auto;
+    background-color: #f4e1c3;
+}
+.header{
+    position: relative;
+}
+.header img{
+    width: 100%;
+    display: block;
+}
+.header-img{
+    width: 100%;
+    display: block;
+}
+.main-menu{
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform:translateX(-50%);
+    justify-content: space-between;
+    
+
+    
+    
+
+    
+
+}
+.main-menu a {
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+    margin: 0 20px;
+    
+
+}
+.main.menu a:hover {
+    text-decoration: underline;
+    
+}
+.section-title{
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    font-family: 'Jomhuria', sans-serif;
+    position: relative;
+    right: 80px;
+
+    
+}
+.movie-card{
+    border: none;
+    background-color: transparent;
+    height: 150%;
+    overflow: hidden;
+    
+}
+.movie-card img{
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.35);
+    width: 80%;
+   
+   
+
+}
+.movie-title{
+    font-weight: 600;
+    margin-top: 8px;
+    text-align: center;
+}
+.bottom-bar{
+    width: 170%;
+    display: block;
+   
+}
+.ticketz{
+   font-family: 'Jomhuria', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: #fff;
+    -webkit-text-stroke: 2px #000;
+    text-shadow: 0 0 2px rgba(0,0,0,0.6);
+    letter-spacing: -1px;
+    pointer-events: none;
+    
+    height: 730px;
+    
+}
+.elipszis{
+    width: 360px;                       
+    height: 50px;
+    background-image: url('./Ellipse 1.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;                
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);   
+    z-index: 1000;
+    margin-top: 20px;
+
+}
+

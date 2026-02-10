@@ -1,0 +1,141 @@
+﻿body{
+    background-color: #ffeacd;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+.header{
+    position: relative;
+}
+.piroscsĂ­k{
+    pointer-events: none;
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    display: block;
+    align-items: flex-end;
+    margin-top: 40px;
+
+
+   
+}
+.piroscsĂ­k2{
+    pointer-events: none;
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: block;
+    align-items: flex-start;
+   
+}
+
+
+.logo-ellipse{
+    pointer-events: none;
+    position: fixed;
+    left: 50%;
+    bottom: -45px;
+    transform: translateX(-50%);
+    z-index: 10;
+    height: 770px;
+}
+.ellipse-img{
+    width: 360px;
+}
+
+.logo-text{
+    position: fixed;
+    left: 49%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    z-index: 10;
+    font-family: 'Jomhuria', sans-serif;
+    font-size: 50px;
+    font-weight: 900;
+    color: white;
+    height: 730px;
+    -webkit-text-stroke: 2px #000; 
+    text-shadow: 0 0 2px rgba(0,0,0,0.6); 
+    pointer-events: none;
+    letter-spacing: -3px;
+}
+
+
+
+
+
+
+.form-box {
+    position: relative;
+    z-index: 20;
+    max-width: 700px;
+    margin: 40px auto;
+    background: #f6ddbc;
+    border-radius: 20px;
+    padding: 40px;
+    border: 10px solid #7c2a23;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+}
+
+.input-label {
+    background: #7c2a23;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px 0 0 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid #7c2a23;
+}
+
+.input-group input {
+    border-radius: 0;
+    border: none;
+    padding-left: 15px;
+    background: #e9c8b8;
+}
+
+.toggle-icon {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    padding: 5px;
+    object-fit: contain;
+}
+
+.ticket-img {
+    width: 80px;
+    height: auto;
+    display: block;
+    margin: 20px auto 0 auto;
+}
+
+.btn-custom {
+    background: #8b2e26;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    padding: 12px 40px;
+    font-size: 20px;
+}
+
+#message {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
