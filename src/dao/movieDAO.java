@@ -4,32 +4,37 @@
  */
 package dao;
 
+
+
 import model.Movie;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDao {
+
     public List<Movie> getAllMovies() {
-        List<Movie> list = new ArrayList<>();
-        String sql = "SELECT * FROM movies";
+        List<Movie> movies = new ArrayList<>();
+        String sql = "SELECT id, title, poster_url FROM movies";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                list.add(new Movie(
+                movies.add(new Movie(
                         rs.getInt("id"),
                         rs.getString("title"),
-                        rs.getInt("poster_url")
+                        rs.getInt("available_seats"),
+                        rs.getString("poster_url") 
                 ));
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        return list;
+        return movies;
     }
 
     public void addMovie(Movie movie) {
@@ -43,12 +48,33 @@ public class MovieDao {
             ps.executeUpdate();
 
         } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void add(Movie movie) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Movie findById(int id) {
+        String sql = "SELECT id, title, poster_url FROM movies WHERE id = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new Movie(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getInt("available_seats"),
+                        rs.getString("poster_url")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
-    
 

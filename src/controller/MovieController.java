@@ -8,6 +8,8 @@ package controller;
 
 
 import dao.MovieDao;
+import java.util.List;
+import model.Event;
 import model.Movie;
 
 public class MovieController {
@@ -19,10 +21,16 @@ public class MovieController {
     }
 
     public void createMovie(Movie movie) {
-        movieDao.add(movie);
+        movieDao.addMovie(movie);
     }
 
     public Movie getMovieById(int id) {
         return movieDao.findById(id);
     }
+
+    public List<Movie> getAllMovies() {
+        return movieDao.getAllMovies();
+    }
+
+   
 }

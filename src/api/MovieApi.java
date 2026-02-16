@@ -26,7 +26,7 @@ public class MovieApi {
     }
 
     // GET /movies
-    public List<Event> getAllMovies() {
+    public List<Movie> getAllMovies() {
         return movieController.getAllMovies();
     }
 

@@ -11,10 +11,14 @@ import api.*;
 import controller.*;
 import dao.*;
 import model.*;
+import security.JwtUtil;
 
 public class Main {
 
     public static void main(String[] args) {
+        
+        String token = JwtUtil.generateToken("admin", "ADMIN");
+        System.out.println(token);
 
         // dao r
         UserDao userDao = new UserDao();
@@ -53,8 +57,8 @@ public class Main {
         adminApi.setLoggedInUser(loggedAdmin);
 
         // adatok felvetele
-        movieApi.createMovie(new Movie(1, "Dűne", 100));
-        movieApi.createMovie(new Movie(2, "Mátrix", 80));
+        movieApi.createMovie(new Movie(1, "Dűne", 100, ""));
+        movieApi.createMovie(new Movie(2, "Mátrix", 80, ""));
 
         theaterApi.createTheater(new Theater(1, "Hamlet", 60));
 
@@ -82,4 +86,7 @@ public class Main {
 
         System.out.println("Felhasználó törölve.");
     }
+    
+    
+
 }

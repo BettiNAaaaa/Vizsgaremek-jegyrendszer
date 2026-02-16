@@ -28,21 +28,21 @@ public class AdminController {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    // ===== MOVIE =====
+    // filmek
 
     public void addMovie(int id, String title, int availableSeats) {
-        Movie movie = new Movie(id, title, availableSeats);
-        movieDao.add(movie);
+        Movie movie = new Movie(id, title, availableSeats, posterUrl);
+        movieDao.addMovie(movie);
     }
 
-    // ===== THEATER =====
+    // szinhazxd
 
     public void addTheater(int id, String title, int availableSeats) {
         Theater theater = new Theater(id, title, availableSeats);
         theaterDao.add(theater);
     }
 
-    // ===== USER =====
+    // felhasznalok
 
     public boolean deleteUser(String username) {
         return userDao.deleteByUsername(username);
