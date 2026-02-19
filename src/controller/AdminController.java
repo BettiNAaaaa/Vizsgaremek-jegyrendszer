@@ -30,7 +30,7 @@ public class AdminController {
 
     // filmek
 
-    public void addMovie(int id, String title, int availableSeats) {
+    public void addMovie(int id, String title, int availableSeats, String posterUrl) {
         Movie movie = new Movie(id, title, availableSeats, posterUrl);
         movieDao.addMovie(movie);
     }
@@ -49,11 +49,11 @@ public class AdminController {
     }
 
     public void deleteMovie(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        movieDao.deleteMovie(id);
     }
 
     public void deleteTheater(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        theaterDao.deleteTheater(id);
     }
     
 }
