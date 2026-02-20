@@ -17,22 +17,37 @@ import java.sql.SQLException;
 public class TheaterDao {
 
     public void add(Theater theater) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void deleteTheater(int id) {
-        String sql = "DELETE FROM theaters WHERE id = ?";
+        
+        String sql = "INSERT INTO theaters (id, title, available_seats) VALUES (?, ?, ?)";
 
     try (Connection conn = Database.getConnection();
          PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        ps.setInt(1, id);
+        ps.setInt(1, theater.getId());
+        ps.setString(2, theater.getTitle());
+        ps.setInt(3, theater.getAvailableSeats());
+
         ps.executeUpdate();
 
     } catch (SQLException e) {
         e.printStackTrace();
     }
 }
-
     
-}
+    
+    public void deleteTheater(int id){
+        
+        String sql = "DELETE FROM theaters WHERE id = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    }
+

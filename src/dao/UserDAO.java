@@ -1,55 +1,67 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 
-
-
+import database.Database;  
+import model.Role;
 import model.User;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDao {
 
-    private List<User> users = new ArrayList<>();
+   
+    public User findById(int id) {
+        String sql = "SELECT * FROM users WHERE id = ?";
 
-    public void add(User user) {
-        users.add(user);
-    }
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-    public User findByUsername(String username) {
-        for (User user : users) {
-            if (user.getUsername().equals(username)) {
-                return user;
+            ps.setInt(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapUser(rs);
+                }
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
         return null;
     }
 
-    public List<User> getAll() {
-        return users;
-    }
     
-    public boolean deleteUser(int id) {
-    User user = findById(id);
-
-    if (user != null) {
-        users.remove(user);
-        return true;
-    }
-
-    return false;
-}
-
-    private User findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     public boolean deleteByUsername(String username) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM users WHERE username = ?";
+
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, username);
+            int affected = ps.executeUpdate();
+
+            return affected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
+    private User mapUser(ResultSet rs) throws SQLException {
+        
+    int id = rs.getInt("id");
+    String name = rs.getString("name");
+    String email = rs.getString("email");
+    String username = rs.getString("username");
+    String password = rs.getString("password");
+
+    String roleStr = rs.getString("role"); 
+    Role role = Role.valueOf(roleStr);
+
+    return new User(id, name, email, username, password, role);
 }
-
-
+}

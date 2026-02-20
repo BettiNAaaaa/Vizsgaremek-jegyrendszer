@@ -4,7 +4,6 @@
  */
 package model;
 
-
 public abstract class Event {
 
     protected int id;
@@ -36,6 +35,10 @@ public abstract class Event {
     }
 
     public void bookSeat(int seats) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (seats > 0 && availableSeats >= seats) {
+        availableSeats -= seats;
+    } else {
+        System.out.println("Not enough available seats.");
+    }
     }
 }

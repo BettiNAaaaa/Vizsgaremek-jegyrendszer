@@ -10,4 +10,25 @@ package model;
  */
 public class Ticket {
     
+    private int id;
+    private int eventId;
+    private int seatCount;
+    
+    public Ticket(int id, int eventId, int seatCount){
+        this.id = id;
+        this.eventId = eventId;
+        this.seatCount = seatCount;
+    }
+    
+    public int getId(){
+        return id;
+    }
+    
+     public int getEventId(){
+        return eventId;
+    }
+     
+      public int getSeatCount(){
+        return seatCount;
+    }
 }
