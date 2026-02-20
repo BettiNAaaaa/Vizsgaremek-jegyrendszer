@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Személyes adatok</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <link rel="stylesheet" href="szemelyesadatokprofil.css">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+   
+</head>
+<body>
+    <div class="header-bar"></div>
+
+  <nav class="main-menu d-flex justify-content-center">
+    <a class="navbar-brand" href="#">Rólunk</a>
+    <a class="navbar-brand" href="mozi.html">Mozi</a>
+    <a class="navbar-brand" href="operahazfantomja.html">Színház</a>
+    <a class="navbar-brand" href="jegyfoglalo.html">Ticketz</a>
+  </nav>
+
+  <div class="text-center">
+    <div class="page-title">Profil</div>
+  </div>
+
+  <main class="stage-wrap">
+
+    <!-- Függöny háttér -->
+    <div class="curtain curtain-left" aria-hidden="true"></div>
+    <div class="curtain curtain-right" aria-hidden="true"></div>
+
+    <!-- KÖZÉPSŐ BÉZS PANEL -->
+    <section class="center-strip">
+      <div class="profile-panel">
+
+        <!-- FEJLÉC SOR -->
+        <div class="panel-top">
+          <div class="panel-title">Személyes adatok</div>
+
+        
+          <button class="haromvonal-btn" type="button" id="menuBtn" aria-label="Menü">
+            <img src="Menu.png" alt="Menü">
+          </button>
+        </div>
+
+        <!-- PROFILKÉP RÉSZ -->
+        <div class="avatar-area text-center">
+          <label class="avatar-picker" for="avatarInput" title="Profilkép módosítása">
+            <img id="avatarPreview" src="" alt="Profilkép" />
+            <div class="avatar-fallback" id="avatarFallback" aria-hidden="true"></div>
+          </label>
+
+          <div class="avatar-hint">Profilkép módosítása</div>
+          <input type="file" id="avatarInput" accept="image/*" hidden>
+        </div>
+
+        <!-- ADATOK DOBOZ -->
+        <div class="data-box">
+
+          <div class="data-row">
+            <div class="data-label">Teljes név</div>
+            <div class="data-input-wrap">
+              <input class="data-input" id="fullName" type="text" value="" placeholder="" disabled>
+              <button class="edit-btn" type="button" data-target="fullName" aria-label="Szerkesztés">
+                <img src="edit 1.png" alt="Szerkesztés">
+              </button>
+            </div>
+          </div>
+
+          <div class="data-row">
+            <div class="data-label">Felhasználónév</div>
+            <div class="data-input-wrap">
+              <input class="data-input" id="userName" type="text" value="" placeholder="" disabled>
+              <button class="edit-btn" type="button" data-target="userName" aria-label="Szerkesztés">
+                <img src="edit 1.png" alt="Szerkesztés">
+              </button>
+            </div>
+          </div>
+
+          <div class="data-row">
+            <div class="data-label">Telefonszám</div>
+            <div class="data-input-wrap">
+              <input class="data-input" id="phone" type="tel" value="" placeholder="" disabled>
+              <button class="edit-btn" type="button" data-target="phone" aria-label="Szerkesztés">
+                <img src="edit 1.png" alt="Szerkesztés">
+              </button>
+            </div>
+          </div>
+
+          <div class="data-row">
+            <div class="data-label">E-mail cím</div>
+            <div class="data-input-wrap">
+              <input class="data-input" id="email" type="email" value="" placeholder="" disabled>
+              <button class="edit-btn" type="button" data-target="email" aria-label="Szerkesztés">
+                <img src="edit 1.png" alt="Szerkesztés">
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- OVERLAY + MENÜ DOBOZ (jobb felső, mint a 2. képen) -->
+    <div class="menu-overlay" id="menuOverlay" aria-hidden="true"></div>
+
+    <aside class="mini-menu" id="miniMenu" aria-hidden="true">
+      <a href="szemelyesadatokprofil.html">Személyes adatok</a>
+      <a href="foglalas.html">Foglalásaim</a>
+      <a href="szamlak.html">Fizetés / számlák</a>
+      <a href="kijelentkezes.html" class="danger">Kijelentkezés</a>
+    </aside>
+
+  </main>
+
+  <div class="footer-bar"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="szemelyesadatokprofil.js"></script>
+</body>
+</html>

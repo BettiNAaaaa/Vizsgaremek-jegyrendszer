@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foglalásaim</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <link rel="stylesheet" href="foglalasaim.css">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+   
+</head>
+<body>
+    <div class="header-bar"></div>
+
+<nav class="main-menu d-flex justify-content-center">
+    <a class="navbar-brand" href="#">Rólunk</a>
+    <a class="navbar-brand" href="mozi.html">Mozi</a>
+    <a class="navbar-brand" href="operahazfantomja.html">Színház</a>
+    <a class="navbar-brand" href="jegyfoglalo.html">Ticketz</a>
+</nav>
+
+<div class="text-center">
+    <div class="page-title">Profil</div>
+</div>
+
+<main class="stage-wrap">
+
+    <div class="curtain curtain-left"></div>
+    <div class="curtain curtain-right"></div>
+
+    <section class="center-strip">
+        <div class="profile-panel">
+            <div class="panel-top">
+          <div class="panel-title">Foglalásaim</div>
+
+        
+          <button class="haromvonal-btn" type="button" id="menuBtn" aria-label="Menü">
+            <img src="Menu.png" alt="Menü">
+          </button>
+        </div>
+
+            
+            <!-- Jegy 1 -->
+            <div class="ticket-card">
+                <div class="ticket-content">
+                    <p><strong>Előadás:</strong> Hamilton</p>
+                    <p><strong>Színház:</strong> Nemzeti Színház</p>
+                    <p><strong>Időpont:</strong> 2026.04.02. 15:30</p>
+                    <p><strong>Hely:</strong> J4, J5, J6</p>
+                    <p><strong>Típus:</strong> Felnőtt</p>
+                    <p><strong>Ár:</strong> 3000 Ft</p>
+                </div>
+                
+            </div>
+
+            <!-- Jegy 2 -->
+            <div class="ticket-card">
+                <div class="ticket-content">
+                    <p><strong>Előadás:</strong> Beetlejuice</p>
+                    <p><strong>Színház:</strong> Nemzeti Színház</p>
+                    <p><strong>Időpont:</strong> 2026.05.12. 18:00</p>
+                    <p><strong>Hely:</strong> B10, B11</p>
+                    <p><strong>Típus:</strong> Diák</p>
+                    <p><strong>Ár:</strong> 2800 Ft</p>
+                </div>
+                
+            </div>
+
+        </div>
+    </section>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <aside class="mini-menu" id="miniMenu">
+        <a href="jegyeim.html">Jegyeim</a>
+        <a href="szemelyesadatokprofil.html">Személyes adatok</a>
+        <a href="#">Fizetés / számlák</a>
+        <a href="#" class="danger">Kijelentkezés</a>
+    </aside>
+
+</main>
+
+<div class="footer-bar"></div>
+ 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="jegyeim.js"></script>
+</body>
+</html>
