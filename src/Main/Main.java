@@ -82,7 +82,7 @@ public class Main {
         System.out.println("\nAdmin törli a felhasználót...");
         authApi.login("admin", "admin");
         adminApi.setLoggedInUser(authApi.getLoggedInUser());
-        adminApi.deleteUser(2);
+     
 
         System.out.println("Felhasználó törölve.");
     }

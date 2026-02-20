@@ -17,8 +17,8 @@ public class AuthController {
         this.userDao = userDao;
     }
 
-    public User login(String username, String password) {
-        User user = (User) userDao.findByUsername(username);
+    public User login(String email, String password) {
+        User user = (User) userDao.findByEmail(email);
         if (user == null || !user.getPassword().equals(password)) {
             throw new IllegalArgumentException("Hibás felhasználónév vagy jelszó");
         }

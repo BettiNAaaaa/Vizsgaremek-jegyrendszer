@@ -28,6 +28,10 @@
             <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/dao/TheaterDao.java</file>
             <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/database/Database.java</file>
             <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/dao/Database.java</file>
+            <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/model/Offer.java</file>
+            <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/model/Role.java</file>
+            <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/model/Ticket.java</file>
+            <file>file:/C:/Program%20Files/NetbeansProjects/Vizsgaremek-jegyrendszer-backend/Vizsgaremek-jegyrendszer-backend/src/dao/TicketDao.java</file>
         </group>
     </open-files>
 </project-private>

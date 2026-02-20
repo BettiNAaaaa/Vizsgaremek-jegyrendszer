@@ -6,9 +6,11 @@ package api;
 
 
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import controller.AdminController;
 import model.User;
 import model.Role;
+import security.JwtUtil;
 
 public class AdminApi {
 
@@ -39,7 +41,18 @@ public class AdminApi {
         adminController.deleteTheater(id);
     }
 
-    public void deleteUser(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public boolean deleteUser(String token, int id) {
+        DecodedJWT jwt = JwtUtil.verifyToken(token);
+    String role = jwt.getClaim("role").asString();
+
+    if (!"ADMIN".equals(role)) {
+        throw new RuntimeException("Nincs jogosultság!");
     }
+
+    return adminController.deleteUser(id);
 }
+    }
+      
+
+        
+    

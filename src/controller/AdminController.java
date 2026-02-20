@@ -44,8 +44,8 @@ public class AdminController {
 
     // felhasznalok
 
-    public boolean deleteUser(String username) {
-        return userDao.deleteByUsername(username);
+    public boolean deleteUser(int id) {
+        return userDao.deleteById(id);
     }
 
     public void deleteMovie(int id) {
