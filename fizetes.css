@@ -1,0 +1,288 @@
+body{
+  background:#e6cfb2;
+  font-family: 'Segoe UI', sans-serif;
+  margin:0;
+}
+
+/* FELSŐ PIROS SÁV */
+.header-bar{
+  background:linear-gradient(#b10000,#7a0000);
+  height:90px;
+  position:relative;
+}
+
+.main-menu{
+  position:absolute;
+  width:100%;
+  top:30px;
+  gap: 200px;
+}
+
+.main-menu a{
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  margin:0 40px;
+  font-size:20px;
+}
+
+.main-menu a:hover{
+  opacity:0.7;
+}
+
+/* CÍM */
+.page-title{
+  background:#7a0000;
+  color:white;
+  display:inline-block;
+  padding:15px 80px;
+  border-radius:0 0 60px 60px;
+  margin-top:-30px;
+  font-size:42px;
+  font-weight:bold;
+  box-shadow:0 6px 15px rgba(0,0,0,0.4);
+}
+
+/* SZÍNPAD */
+.stage-wrap{
+  position:relative;
+  margin-top:-63px;
+  padding-top:140px;
+  padding-bottom:120px;
+  min-height:calc(100vh - 90px - 80px);
+}
+
+/* Függönyök */
+.curtain{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:28%;
+  background-size:cover;
+  background-position:center;
+  z-index:1;
+}
+.curtain-left{
+  left:0;
+  background-image:url("curtain2-removebg-bal 1.png");
+}
+.curtain-right{
+  right:0;
+  background-image:url("curtain2-removebg-preview-jobb 1.png");
+}
+
+/* ALSÓ PIROS SÁV */
+.footer-bar{
+  background:linear-gradient(#b10000,#7a0000);
+  height:80px;
+  width:100%;
+}
+
+/* ================= KÖZÉPSŐ PANEL (ÚJ TARTALOM) ================= */
+
+.center-strip{
+  position:relative;
+  z-index:2;
+  width:44%;
+  min-width:520px;
+  max-width:720px;
+  margin:0 auto;
+  background:#ead2b5;
+  padding:22px 18px;
+  box-shadow:0 10px 22px rgba(0,0,0,.18);
+}
+
+.profile-panel{
+  background:#f6efef;
+  border:2px solid #7a0000;
+  box-shadow:0 10px 20px rgba(0,0,0,.20);
+  padding:18px;
+}
+
+/* fejléc */
+.panel-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:2px solid #7a0000;
+  padding-bottom:12px;
+}
+
+.panel-title{
+  font-size:26px;
+  font-weight:900;
+  margin:0 auto;
+  transform:translateX(18px);
+}
+
+/* hamburger */
+.haromvonal-btn{
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  padding:4px;
+}
+.haromvonal-btn img{
+  width:26px;
+  height:26px;
+  object-fit:contain;
+}
+
+/* szekció címek */
+.section-label{
+  font-weight:900;
+  font-size:13px;
+  margin: 18px 0 8px;
+}
+
+/* mentett kártya keret (most üres) */
+.card-box{
+  border:2px solid #7a0000;
+  background:#f6efef;
+  padding:10px;
+  position:relative;
+}
+
+.no-card{
+  font-weight:800;
+  font-size:12px;
+  padding:10px 6px;
+}
+
+/* hozzáadás gomb (link) */
+.add-btn{
+  position:absolute;
+  right:10px;
+  bottom:-18px;
+  font-size:12px;
+  font-weight:900;
+  color:#7a0000;
+  text-decoration:none;
+  background:transparent;
+  border:none;
+  padding:0;
+  cursor:pointer;
+}
+.add-btn:hover{
+  text-decoration:underline;
+}
+
+.saved-card{
+  border:2px solid #7a0000;
+  background:#ead2b5;
+  padding:8px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-weight:900;
+  font-size:12px;
+}
+.saved-card .left{ display:flex; align-items:center; gap:8px; }
+.saved-card .brand{
+  border:2px solid #7a0000;
+  background:#f6efef;
+  padding:2px 6px;
+  font-size:11px;
+  font-weight:900;
+}
+.trash-btn{
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-size:14px;
+  margin-left:10px;
+}
+
+/* számlák keret */
+.invoice-box{
+  border:2px solid #7a0000;
+  background:#f6efef;
+  padding:8px;
+}
+
+.invoice-item{
+  border:2px solid #e6a5a5;
+  background:#ead2b5;
+  padding:10px;
+  margin:10px 0;
+  font-size:11px;
+  font-weight:700;
+}
+
+.invoice-item .inv-id{
+  font-weight:900;
+  margin-bottom:4px;
+}
+
+.invoice-item p{
+  margin:2px 0;
+}
+
+/* ================= OVERLAY MENÜ (ugyanaz mint előző) ================= */
+
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:none;
+  z-index:50;
+}
+
+.mini-menu{
+  position:fixed;
+  top:170px;
+  right:80px;
+  width:150px;
+  background:#e9c1c1;
+  border:3px solid #7a0000;
+  padding:10px;
+  display:none;
+  z-index:60;
+  box-shadow:0 10px 20px rgba(0,0,0,.25);
+}
+
+.mini-menu a{
+  display:block;
+  text-align:center;
+  padding:6px;
+  font-weight:800;
+  text-decoration:none;
+  color:#1b1b1b;
+  font-size:12px;
+}
+
+.mini-menu a:hover{
+  background:rgba(122,0,0,.12);
+}
+
+.mini-menu a.danger{
+  color:#7a0000;
+  font-size:13px;
+}
+
+.menu-overlay.show{ display:block; }
+.mini-menu.show{ display:block; }
+
+/* reszponzív */
+@media(max-width:992px){
+  .center-strip{
+    width:66%;
+    min-width:0;
+  }
+  .curtain{
+    width:18%;
+  }
+}
+@media(max-width:768px){
+  .center-strip{
+    width:92%;
+    min-width:0;
+  }
+  .curtain{
+    display:none;
+  }
+  .mini-menu{
+    right:18px;
+    top:150px;
+  }
+}

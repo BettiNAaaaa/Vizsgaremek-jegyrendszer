@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kártya hozzáadása</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <link rel="stylesheet" href="kartyahozzaadas.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header-bar"></div>
+
+<nav class="main-menu d-flex justify-content-center">
+  <a class="navbar-brand" href="#">Rólunk</a>
+  <a class="navbar-brand" href="mozi.html">Mozi</a>
+  <a class="navbar-brand" href="operahazfantomja.html">Színház</a>
+  <a class="navbar-brand" href="jegyfoglalo.html">Ticketz</a>
+</nav>
+
+<div class="text-center">
+  <div class="page-title">Profil</div>
+</div>
+
+<main class="stage-wrap">
+  <div class="curtain curtain-left"></div>
+  <div class="curtain curtain-right"></div>
+
+  <section class="center-strip">
+    <div class="form-panel">
+
+      <div class="form-title">Kártya hozzáadása</div>
+      <div class="form-underline"></div>
+
+      <form id="cardForm" novalidate>
+        <div class="row row-gap">
+          <div class="col-6">
+            <div class="lbl">Vezetéknév</div>
+            <input class="inp" id="lastName" type="text" required>
+          </div>
+          <div class="col-6">
+            <div class="lbl">Keresztnév</div>
+            <input class="inp" id="firstName" type="text" required>
+          </div>
+
+          <div class="col-12">
+            <div class="lbl">E-mail cím</div>
+            <input class="inp" id="email" type="email" required>
+          </div>
+
+          <div class="col-12">
+            <div class="lbl">Kártyaszám</div>
+            <input class="inp" id="cardNumber" type="text" inputmode="numeric" maxlength="19" placeholder="1234 5678 9012 3456" required>
+          </div>
+
+          <div class="col-6">
+            <div class="lbl">Lejárati dátum</div>
+            <input class="inp" id="exp" type="text" inputmode="numeric" maxlength="5" placeholder="MM/YY" required>
+          </div>
+
+          <div class="col-6">
+            <div class="lbl">CVC/CVV kód</div>
+            <input class="inp" id="cvc" type="password" inputmode="numeric" maxlength="4" placeholder="123" required>
+          </div>
+
+          <div class="col-12 text-center mt-2">
+            <button class="btn-add" type="submit">
+              Hozzáadás 
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </section>
+
+</main>
+
+<div class="footer-bar"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="kartyahozzaadas.js"></script>       
+</body>
+</html>
