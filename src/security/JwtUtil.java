@@ -1,5 +1,6 @@
 package security;
 
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
@@ -8,12 +9,12 @@ import java.util.Base64;
 
 public class JwtUtil {
 
-    private static final String SECRET = "vizsgaremek_secret_key_2026";
+    private static final String SECRET = "vizsgaremek_secret_2026";
     private static final long EXP_SECONDS = 60 * 60; // 1 óra
 
     public static class DecodedToken {
-        public final String subject;
-        public final String role;
+        public final String subject; // email
+        public final String role; // ADMIN/USER
 
         public DecodedToken(String subject, String role) {
             this.subject = subject;
@@ -24,72 +25,47 @@ public class JwtUtil {
     public static String generateToken(String subject, String role) {
         String headerJson = "{\"alg\":\"HS256\",\"typ\":\"JWT\"}";
         long exp = Instant.now().getEpochSecond() + EXP_SECONDS;
-        String payloadJson = "{\"sub\":\"" + escape(subject) + "\",\"role\":\"" + escape(role) + "\",\"exp\":" + exp + "}";
+        String payloadJson = "{\"sub\":\"" + esc(subject) + "\",\"role\":\"" + esc(role) + "\",\"exp\":" + exp + "}";
 
-        String header = base64Url(headerJson.getBytes(StandardCharsets.UTF_8));
-        String payload = base64Url(payloadJson.getBytes(StandardCharsets.UTF_8));
+        String header = b64url(headerJson.getBytes(StandardCharsets.UTF_8));
+        String payload = b64url(payloadJson.getBytes(StandardCharsets.UTF_8));
         String unsigned = header + "." + payload;
-        String signature = hmacSha256(unsigned, SECRET);
+        String sig = hmac(unsigned, SECRET);
 
-        return unsigned + "." + signature;
+        return unsigned + "." + sig;
     }
 
     public static DecodedToken verifyToken(String token) {
-        String[] parts = token.split("\\.");
-        if (parts.length != 3) throw new RuntimeException("Invalid JWT format");
+        String[] p = token.split("\\.");
+        if (p.length != 3) throw new RuntimeException("Invalid token format");
 
-        String unsigned = parts[0] + "." + parts[1];
-        String expectedSig = hmacSha256(unsigned, SECRET);
-        if (!constantTimeEquals(expectedSig, parts[2])) {
-            throw new RuntimeException("Invalid JWT signature");
-        }
+        String unsigned = p[0] + "." + p[1];
+        String expected = hmac(unsigned, SECRET);
+        if (!constantTimeEquals(expected, p[2])) throw new RuntimeException("Bad signature");
 
-        String payloadJson = new String(Base64.getUrlDecoder().decode(parts[1]), StandardCharsets.UTF_8);
+        String payload = new String(Base64.getUrlDecoder().decode(p[1]), StandardCharsets.UTF_8);
 
-        String sub = extractJsonString(payloadJson, "sub");
-        String role = extractJsonString(payloadJson, "role");
-        long exp = extractJsonLong(payloadJson, "exp");
+        String sub = jsonStr(payload, "sub");
+        String role = jsonStr(payload, "role");
+        long exp = jsonLong(payload, "exp");
 
-        if (Instant.now().getEpochSecond() > exp) {
-            throw new RuntimeException("JWT expired");
-        }
+        if (Instant.now().getEpochSecond() > exp) throw new RuntimeException("Token expired");
 
         return new DecodedToken(sub, role);
     }
 
-    private static String base64Url(byte[] data) {
+    private static String b64url(byte[] data) {
         return Base64.getUrlEncoder().withoutPadding().encodeToString(data);
     }
 
-    private static String hmacSha256(String data, String secret) {
+    private static String hmac(String data, String secret) {
         try {
             Mac mac = Mac.getInstance("HmacSHA256");
             mac.init(new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256"));
-            return base64Url(mac.doFinal(data.getBytes(StandardCharsets.UTF_8)));
+            return b64url(mac.doFinal(data.getBytes(StandardCharsets.UTF_8)));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    // Minimal JSON extract (flat payload)
-    private static String extractJsonString(String json, String key) {
-        String pattern = "\"" + key + "\":\"";
-        int start = json.indexOf(pattern);
-        if (start < 0) return null;
-        start += pattern.length();
-        int end = json.indexOf("\"", start);
-        if (end < 0) return null;
-        return json.substring(start, end);
-    }
-
-    private static long extractJsonLong(String json, String key) {
-        String pattern = "\"" + key + "\":";
-        int start = json.indexOf(pattern);
-        if (start < 0) return 0;
-        start += pattern.length();
-        int end = start;
-        while (end < json.length() && Character.isDigit(json.charAt(end))) end++;
-        return Long.parseLong(json.substring(start, end));
     }
 
     private static boolean constantTimeEquals(String a, String b) {
@@ -99,7 +75,26 @@ public class JwtUtil {
         return r == 0;
     }
 
-    private static String escape(String s) {
+    private static String jsonStr(String json, String key) {
+        String p = "\"" + key + "\":\"";
+        int i = json.indexOf(p);
+        if (i < 0) return null;
+        i += p.length();
+        int e = json.indexOf("\"", i);
+        return (e < 0) ? null : json.substring(i, e);
+    }
+
+    private static long jsonLong(String json, String key) {
+        String p = "\"" + key + "\":";
+        int i = json.indexOf(p);
+        if (i < 0) return 0;
+        i += p.length();
+        int e = i;
+        while (e < json.length() && Character.isDigit(json.charAt(e))) e++;
+        return Long.parseLong(json.substring(i, e));
+    }
+
+    private static String esc(String s) {
         return s.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 }

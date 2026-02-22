@@ -1,31 +1,87 @@
 package dao;
 
+
+
+import model.Ticket;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TicketDao {
 
     
-    private static final String TABLE = "tickets";
-
-    public int insertTicket(int userId, int eventId, int seatCount) {
-        String sql = "INSERT INTO " + TABLE + " (user_id, event_id, seat_count) VALUES (?, ?, ?)";
+    public List<Ticket> listTicketsForEvent(int eventId) {
+        List<Ticket> list = new ArrayList<>();
+        String sql = "{CALL list_tickets_for_event(?)}";
 
         try (Connection conn = Database.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             CallableStatement cs = conn.prepareCall(sql)) {
 
-            ps.setInt(1, userId);
-            ps.setInt(2, eventId);
-            ps.setInt(3, seatCount);
-            ps.executeUpdate();
+            cs.setInt(1, eventId);
 
-            try (ResultSet keys = ps.getGeneratedKeys()) {
-                if (keys.next()) return keys.getInt(1);
+            try (ResultSet rs = cs.executeQuery()) {
+                while (rs.next()) {
+                    list.add(mapTicket(rs));
+                }
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return list;
+    }
 
-        return -1;
+   
+    public boolean reserveTicket(int ticketId) {
+        String sql = "{CALL reserve_ticket(?)}";
+        try (Connection conn = Database.getConnection();
+             CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setInt(1, ticketId);
+            cs.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    
+    public boolean markTicketAsSold(int ticketId) {
+        String sql = "{CALL mark_ticket_as_sold(?)}";
+        try (Connection conn = Database.getConnection();
+             CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setInt(1, ticketId);
+            cs.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+   
+    public boolean cancelReservation(int ticketId) {
+        String sql = "{CALL cancel_reservation(?)}";
+        try (Connection conn = Database.getConnection();
+             CallableStatement cs = conn.prepareCall(sql)) {
+            cs.setInt(1, ticketId);
+            cs.execute();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private Ticket mapTicket(ResultSet rs) throws SQLException {
+        return new Ticket(
+                rs.getInt("id"),
+                rs.getInt("event_id"),
+                rs.getString("seat_label"),
+                rs.getBigDecimal("price"),
+                rs.getString("status"),
+                rs.getTimestamp("created")
+        );
     }
 }

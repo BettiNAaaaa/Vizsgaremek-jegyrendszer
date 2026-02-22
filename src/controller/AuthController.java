@@ -1,5 +1,7 @@
 package controller;
 
+
+
 import dao.UserDao;
 import model.User;
 
@@ -13,12 +15,12 @@ public class AuthController {
     }
 
     public User login(String email, String password) {
-        User user = userDao.findByEmail(email);
-        if (user == null || !user.getPassword().equals(password)) {
+        User u = userDao.findByEmail(email);
+        if (u == null || !u.getPassword().equals(password)) {
             throw new IllegalArgumentException("Hibás email vagy jelszó");
         }
-        loggedInUser = user;
-        return user;
+        loggedInUser = u;
+        return u;
     }
 
     public User getLoggedInUser() {

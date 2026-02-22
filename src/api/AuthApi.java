@@ -1,10 +1,11 @@
 package api;
 
+
+
 import controller.AuthController;
 import model.User;
 
 public class AuthApi {
-
     private final AuthController authController;
 
     public AuthApi(AuthController authController) {

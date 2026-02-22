@@ -1,12 +1,12 @@
 package controller;
 
+
+
 import dao.EventDao;
 import model.Event;
-
 import java.util.List;
 
 public class EventController {
-
     private final EventDao eventDao;
 
     public EventController(EventDao eventDao) {
@@ -17,11 +17,15 @@ public class EventController {
         return eventDao.getAll();
     }
 
-    public List<Event> getAllByType(String type) {
-        return eventDao.getAllByType(type);
+    public List<Event> getCinemaEvents() {
+        return eventDao.getByType("cinema");
     }
 
-    public Event findById(int id) {
+    public List<Event> getTheatreEvents() {
+        return eventDao.getByType("theatre");
+    }
+
+    public Event getById(int id) {
         return eventDao.findById(id);
     }
 }

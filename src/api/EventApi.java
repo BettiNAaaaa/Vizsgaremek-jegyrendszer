@@ -5,13 +5,11 @@
 package api;
 
 
-
 import controller.EventController;
 import model.Event;
 import java.util.List;
 
 public class EventApi {
-
     private final EventController eventController;
 
     public EventApi(EventController eventController) {
@@ -22,11 +20,11 @@ public class EventApi {
         return eventController.getAllEvents();
     }
 
-    public List<Event> getMovies() {
-        return eventController.getAllByType("movie");
+    public List<Event> getCinemaEvents() {
+        return eventController.getCinemaEvents();
     }
 
-    public List<Event> getTheatres() {
-        return eventController.getAllByType("theatre");
+    public List<Event> getTheatreEvents() {
+        return eventController.getTheatreEvents();
     }
 }
