@@ -1,21 +1,31 @@
 package model;
 
+
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 public class Ticket {
-
     private int id;
-    private int userId;
     private int eventId;
-    private int seatCount;
+    private String seatLabel;
+    private BigDecimal price;
+    private String status;
+    private Timestamp created;
 
-    public Ticket(int id, int userId, int eventId, int seatCount) {
+    public Ticket(int id, int eventId, String seatLabel, BigDecimal price, String status, Timestamp created) {
         this.id = id;
-        this.userId = userId;
         this.eventId = eventId;
-        this.seatCount = seatCount;
+        this.seatLabel = seatLabel;
+        this.price = price;
+        this.status = status;
+        this.created = created;
     }
 
     public int getId() { return id; }
-    public int getUserId() { return userId; }
     public int getEventId() { return eventId; }
-    public int getSeatCount() { return seatCount; }
+    public String getSeatLabel() { return seatLabel; }
+    public BigDecimal getPrice() { return price; }
+    public String getStatus() { return status; }
+    public Timestamp getCreated() { return created; }
 }

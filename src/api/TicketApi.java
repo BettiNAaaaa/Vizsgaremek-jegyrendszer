@@ -1,8 +1,9 @@
 package api;
 
 
+
+
 import controller.TicketController;
-import model.Booking;
 import model.User;
 
 public class TicketApi {
@@ -18,7 +19,13 @@ public class TicketApi {
         this.loggedInUser = user;
     }
 
-    public Booking bookTicket(int eventId, int seatCount) {
-        return ticketController.bookTicket(eventId, loggedInUser, seatCount);
+ 
+    public boolean buyTicket(int ticketId) {
+        if (loggedInUser == null) {
+            throw new IllegalArgumentException("Nincs bejelentkezett felhasználó!");
+        }
+
+       
+        return ticketController.buyTicket(ticketId);
     }
 }
