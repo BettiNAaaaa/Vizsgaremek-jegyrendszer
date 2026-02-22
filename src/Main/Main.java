@@ -1,7 +1,5 @@
 package Main;
 
-
-
 import server.RestServer;
 
 public class Main {
