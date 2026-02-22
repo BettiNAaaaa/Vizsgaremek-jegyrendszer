@@ -6,12 +6,12 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class Ticket {
-    private int id;
-    private int eventId;
-    private String seatLabel;
-    private BigDecimal price;
-    private String status;
-    private Timestamp created;
+    private final int id;
+    private final int eventId;
+    private final String seatLabel;
+    private final BigDecimal price;
+    private final String status;
+    private final Timestamp created;
 
     public Ticket(int id, int eventId, String seatLabel, BigDecimal price, String status, Timestamp created) {
         this.id = id;

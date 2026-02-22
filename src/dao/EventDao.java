@@ -1,18 +1,16 @@
 package dao;
 
-import model.Event;
 
+
+import model.Event;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventDao {
 
-    
-    private static final String TABLE = "events";
-
     public Event findById(int id) {
-        String sql = "SELECT id, title, type, available_seats, poster_url FROM " + TABLE + " WHERE id = ?";
+        String sql = "SELECT id, title, room, type, start, end, seats, cinema_id, theatre_id FROM events WHERE id = ?";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -20,40 +18,34 @@ public class EventDao {
             ps.setInt(1, id);
 
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return mapEvent(rs);
-                }
+                if (rs.next()) return mapEvent(rs);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
     public List<Event> getAll() {
+        String sql = "SELECT id, title, room, type, start, end, seats, cinema_id, theatre_id FROM events ORDER BY id";
         List<Event> list = new ArrayList<>();
-        String sql = "SELECT id, title, type, available_seats, poster_url FROM " + TABLE + " ORDER BY id";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
-            while (rs.next()) {
-                list.add(mapEvent(rs));
-            }
+            while (rs.next()) list.add(mapEvent(rs));
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return list;
     }
 
-    public List<Event> getAllByType(String type) {
+    public List<Event> getByType(String type) {
+        String sql = "SELECT id, title, room, type, start, end, seats, cinema_id, theatre_id FROM events WHERE type = ? ORDER BY id";
         List<Event> list = new ArrayList<>();
-        String sql = "SELECT id, title, type, available_seats, poster_url FROM " + TABLE + " WHERE type = ? ORDER BY id";
 
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -61,40 +53,26 @@ public class EventDao {
             ps.setString(1, type);
 
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    list.add(mapEvent(rs));
-                }
+                while (rs.next()) list.add(mapEvent(rs));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return list;
-    }
-
-    public void updateAvailableSeats(int eventId, int newSeats) {
-        String sql = "UPDATE " + TABLE + " SET available_seats = ? WHERE id = ?";
-
-        try (Connection conn = Database.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, newSeats);
-            ps.setInt(2, eventId);
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     private Event mapEvent(ResultSet rs) throws SQLException {
         return new Event(
                 rs.getInt("id"),
                 rs.getString("title"),
+                rs.getString("room"),
                 rs.getString("type"),
-                rs.getInt("available_seats"),
-                rs.getString("poster_url")
+                rs.getTimestamp("start"),
+                rs.getTimestamp("end"),
+                rs.getInt("seats"),
+                (Integer) rs.getObject("cinema_id"),
+                (Integer) rs.getObject("theatre_id")
         );
     }
 }
