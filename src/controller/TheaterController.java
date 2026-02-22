@@ -5,7 +5,6 @@
 package controller;
 
 
-
 import dao.TheaterDao;
 import model.Theater;
 import java.util.List;

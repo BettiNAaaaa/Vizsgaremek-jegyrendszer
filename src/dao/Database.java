@@ -18,7 +18,7 @@ public class Database {
             "jdbc:mysql://localhost:" + PORT + "/" + DB + "?useSSL=false&serverTimezone=UTC";
 
     private static final String USER = "root";
-    private static final String PASSWORD = "root"; // MAMP default. Ha nálad más, írd át!
+    private static final String PASSWORD = "root"; 
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);

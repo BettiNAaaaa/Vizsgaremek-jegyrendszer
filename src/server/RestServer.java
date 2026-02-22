@@ -46,7 +46,7 @@ public class RestServer {
         TheaterApi theaterApi = new TheaterApi(theaterController);
         MovieApi movieApi = new MovieApi(movieController);
 
-        HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(9090), 0);
 
         // login
         server.createContext("/api/auth/login", ex -> {
@@ -255,7 +255,7 @@ public class RestServer {
         });
 
         server.start();
-        System.out.println("REST API fut: http://localhost:8080");
+        System.out.println("REST API fut: http://localhost:9090");
     }
 
 
