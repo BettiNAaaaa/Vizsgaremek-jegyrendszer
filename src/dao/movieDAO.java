@@ -77,8 +77,19 @@ public class MovieDao {
         return null;
     }
 
-    public void deleteMovie(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+   public boolean deleteMovie(int id) {
+    String sql = "DELETE FROM movies WHERE id = ?";
+
+    try (Connection conn = Database.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setInt(1, id);
+        return ps.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+}
 }
 

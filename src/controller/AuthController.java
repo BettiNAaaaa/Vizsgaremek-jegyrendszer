@@ -1,31 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
-
-
 
 import dao.UserDao;
 import model.User;
 
 public class AuthController {
 
-    private UserDao userDao;
+    private final UserDao userDao;
+    private User loggedInUser;
 
     public AuthController(UserDao userDao) {
         this.userDao = userDao;
     }
 
     public User login(String email, String password) {
-        User user = (User) userDao.findByEmail(email);
+        User user = userDao.findByEmail(email);
         if (user == null || !user.getPassword().equals(password)) {
-            throw new IllegalArgumentException("Hibás felhasználónév vagy jelszó");
+            throw new IllegalArgumentException("Hibás email vagy jelszó");
         }
+        loggedInUser = user;
         return user;
     }
 
     public User getLoggedInUser() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return loggedInUser;
+    }
+
+    public void logout() {
+        loggedInUser = null;
     }
 }

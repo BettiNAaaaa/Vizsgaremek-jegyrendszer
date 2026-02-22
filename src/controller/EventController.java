@@ -1,19 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
+import dao.EventDao;
 import model.Event;
 
-/**
- *
- * @author HP
- */
+import java.util.List;
+
 public class EventController {
 
-    public Event findEventById(int eventId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private final EventDao eventDao;
+
+    public EventController(EventDao eventDao) {
+        this.eventDao = eventDao;
     }
-    
+
+    public List<Event> getAllEvents() {
+        return eventDao.getAll();
+    }
+
+    public List<Event> getAllByType(String type) {
+        return eventDao.getAllByType(type);
+    }
+
+    public Event findById(int id) {
+        return eventDao.findById(id);
+    }
 }

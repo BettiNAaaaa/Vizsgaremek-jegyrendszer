@@ -1,42 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
-import dao.BookingDao;
 import dao.EventDao;
-import model.*;
+import dao.TicketDao;
+import model.Booking;
+import model.Event;
 import model.User;
 
-
 public class TicketController {
-private EventDao eventDao;
-private BookingDao bookingDao;
 
+    private final EventDao eventDao;
+    private final TicketDao ticketDao;
 
-public TicketController(EventDao eventDao, BookingDao bookingDao) {
-this.eventDao = eventDao;
-this.bookingDao = bookingDao;
-}
-
-    public TicketController(BookingDao bookingDao) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public TicketController(EventDao eventDao, TicketDao ticketDao) {
+        this.eventDao = eventDao;
+        this.ticketDao = ticketDao;
     }
 
+    public Booking bookTicket(int eventId, User user, int seatCount) {
+        if (user == null) throw new IllegalArgumentException("Nincs bejelentkezett felhasználó");
+        if (seatCount <= 0) throw new IllegalArgumentException("A jegyek száma legyen pozitív");
 
-public Booking bookTicket(int eventId, User user, int seatCount) {
-Event event = eventDao.findById(eventId);
-if (event == null) {
-throw new IllegalArgumentException("Nincs ilyen esemény");
-}
-event.bookSeat(seatCount);
-Booking booking = new Booking(user, event, seatCount);
-bookingDao.save(booking);
-return booking;
-}
+        Event event = eventDao.findById(eventId);
+        if (event == null) throw new IllegalArgumentException("Nincs ilyen esemény");
 
-    public Booking bookTicket(User loggedInUser, Event event) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        event.bookSeat(seatCount);
+
+     
+        eventDao.updateAvailableSeats(eventId, event.getAvailableSeats());
+        int ticketId = ticketDao.insertTicket(user.getId(), eventId, seatCount);
+
+        return new Booking(ticketId, user, event, seatCount);
     }
 }

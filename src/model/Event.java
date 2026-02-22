@@ -1,44 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-public abstract class Event {
+public class Event {
+    private int id;
+    private String title;
+    private String type; // film v darab
+    private int availableSeats;
+    private String posterUrl; // lehet üres
 
-    protected int id;
-    protected String title;
-    protected int availableSeats;
-
-    public Event(int id, String title, int availableSeats) {
+    public Event(int id, String title, String type, int availableSeats, String posterUrl) {
         this.id = id;
         this.title = title;
+        this.type = type;
         this.availableSeats = availableSeats;
+        this.posterUrl = posterUrl;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getAvailableSeats() {
-        return availableSeats;
-    }
-
-    public void bookSeat() {
-        if (availableSeats > 0) {
-            availableSeats--;
-        }
-    }
+    public int getId() { return id; }
+    public String getTitle() { return title; }
+    public String getType() { return type; }
+    public int getAvailableSeats() { return availableSeats; }
+    public String getPosterUrl() { return posterUrl; }
 
     public void bookSeat(int seats) {
-        if (seats > 0 && availableSeats >= seats) {
+        if (seats <= 0) {
+            throw new IllegalArgumentException("Seat count must be positive.");
+        }
+        if (availableSeats < seats) {
+            throw new IllegalStateException("Not enough available seats.");
+        }
         availableSeats -= seats;
-    } else {
-        System.out.println("Not enough available seats.");
-    }
     }
 }
