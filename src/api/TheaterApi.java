@@ -4,10 +4,23 @@
  */
 package api;
 
-/**
- *
- * @author HP
- */
+
+import controller.TheaterController;
+import model.Theater;
+import java.util.List;
+
 public class TheaterApi {
-    
+    private final TheaterController theaterController;
+
+    public TheaterApi(TheaterController theaterController) {
+        this.theaterController = theaterController;
+    }
+
+    public List<Theater> getAllTheatres() {
+        return theaterController.getAllTheatres();
+    }
+
+    public boolean deleteTheatre(int id) {
+        return theaterController.deleteTheatre(id);
+    }
 }
