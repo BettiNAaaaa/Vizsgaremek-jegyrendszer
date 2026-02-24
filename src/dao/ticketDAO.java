@@ -1,87 +1,90 @@
 package dao;
 
-
-
 import model.Ticket;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TicketDao {
 
-    
     public List<Ticket> listTicketsForEvent(int eventId) {
         List<Ticket> list = new ArrayList<>();
-        String sql = "{CALL list_tickets_for_event(?)}";
+        String sql = "SELECT id, event_id, seat_label, price, status, created FROM tickets WHERE event_id = ?";
 
         try (Connection conn = Database.getConnection();
-             CallableStatement cs = conn.prepareCall(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            cs.setInt(1, eventId);
+            ps.setInt(1, eventId);
 
-            try (ResultSet rs = cs.executeQuery()) {
+            try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    list.add(mapTicket(rs));
+                    Ticket t = new Ticket(
+                            rs.getInt("id"),
+                            rs.getInt("event_id"),
+                            rs.getString("seat_label"),
+                            rs.getDouble("price"),
+                            rs.getString("status"),
+                            rs.getTimestamp("created")
+                    );
+                    list.add(t);
                 }
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return list;
     }
 
-   
     public boolean reserveTicket(int ticketId) {
-        String sql = "{CALL reserve_ticket(?)}";
+        // csak akkor foglal, ha available
+        String sql = "UPDATE tickets SET status='reserved' WHERE id=? AND status='available'";
         try (Connection conn = Database.getConnection();
-             CallableStatement cs = conn.prepareCall(sql)) {
-            cs.setInt(1, ticketId);
-            cs.execute();
-            return true;
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, ticketId);
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    
-    public boolean markTicketAsSold(int ticketId) {
-        String sql = "{CALL mark_ticket_as_sold(?)}";
+    public boolean buyTicket(int ticketId) {
+        String sql = "UPDATE tickets SET status='sold' WHERE id=? AND status IN ('available','reserved')";
         try (Connection conn = Database.getConnection();
-             CallableStatement cs = conn.prepareCall(sql)) {
-            cs.setInt(1, ticketId);
-            cs.execute();
-            return true;
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, ticketId);
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-   
     public boolean cancelReservation(int ticketId) {
-        String sql = "{CALL cancel_reservation(?)}";
+        String sql = "UPDATE tickets SET status='available' WHERE id=? AND status='reserved'";
         try (Connection conn = Database.getConnection();
-             CallableStatement cs = conn.prepareCall(sql)) {
-            cs.setInt(1, ticketId);
-            cs.execute();
-            return true;
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, ticketId);
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    private Ticket mapTicket(ResultSet rs) throws SQLException {
-        return new Ticket(
-                rs.getInt("id"),
-                rs.getInt("event_id"),
-                rs.getString("seat_label"),
-                rs.getBigDecimal("price"),
-                rs.getString("status"),
-                rs.getTimestamp("created")
-        );
+    public boolean markTicketAsSold(int ticketId) {
+    String sql = "UPDATE tickets SET status='sold' WHERE id=? AND status IN ('available','reserved')";
+    try (Connection conn = Database.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setInt(1, ticketId);
+        return ps.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
     }
+}
 }

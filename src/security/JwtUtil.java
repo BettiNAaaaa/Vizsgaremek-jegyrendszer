@@ -13,8 +13,8 @@ public class JwtUtil {
     private static final long EXP_SECONDS = 60 * 60; // 1 óra
 
     public static class DecodedToken {
-        public final String subject; // email
-        public final String role; // ADMIN/USER
+        public final String subject; 
+        public final String role; 
 
         public DecodedToken(String subject, String role) {
             this.subject = subject;

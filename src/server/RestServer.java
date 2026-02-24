@@ -47,6 +47,8 @@ public class RestServer {
         MovieApi movieApi = new MovieApi(movieController);
 
         HttpServer server = HttpServer.create(new InetSocketAddress(9090), 0);
+        
+        
 
         // login
         server.createContext("/api/auth/login", ex -> {
@@ -61,6 +63,13 @@ public class RestServer {
             String body = readBody(ex);
             String email = jsonStr(body, "email");
             String password = jsonStr(body, "password");
+            System.out.println("RAW BODY = " + body);
+            email = email == null ? null : email.trim();
+            password = password == null ? null : password.trim();
+            
+            
+           
+           
 
             try {
                 User u = authApi.login(email, password);
@@ -297,21 +306,16 @@ public class RestServer {
     }
 
     
-    private static String jsonStr(String json, String key) {
-        if (json == null) return null;
-        String p = "\"" + key + "\":";
-        int i = json.indexOf(p);
-        if (i < 0) return null;
-        i += p.length();
-        while (i < json.length() && Character.isWhitespace(json.charAt(i))) i++;
-        if (i < json.length() && json.charAt(i) == '"') {
-            i++;
-            int e = json.indexOf('"', i);
-            if (e < 0) return null;
-            return json.substring(i, e);
-        }
-        return null;
-    }
+   private static String jsonStr(String json, String key) {
+    if (json == null) return null;
+
+    java.util.regex.Pattern p = java.util.regex.Pattern.compile(
+        "\\\"" + java.util.regex.Pattern.quote(key) + "\\\"\\s*:\\s*\\\"([^\\\"]*)\\\""
+    );
+    java.util.regex.Matcher m = p.matcher(json);
+    if (m.find()) return m.group(1);
+    return null;
+}
 
     private static int jsonInt(String json, String key) {
         String p = "\"" + key + "\":";

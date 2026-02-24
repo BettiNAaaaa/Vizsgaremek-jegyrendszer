@@ -7,7 +7,9 @@ public class Main {
         RestServer.main(args);
         
         
-      
+     try (var c = dao.Database.getConnection()) {
+    System.out.println("DB CATALOG = " + c.getCatalog());
+} 
     }
     
 
