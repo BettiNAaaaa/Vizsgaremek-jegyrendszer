@@ -1,0 +1,70 @@
+﻿body{
+    background-color: #ffeacd;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+.header{
+    position: relative;
+}
+.piroscsĂ­k{
+    pointer-events: none;
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    display: block;
+    align-items: flex-end;
+    margin-top: 40px;
+
+
+   
+}
+.piroscsĂ­k2{
+    pointer-events: none;
+    position:fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: block;
+    align-items: flex-start;
+   
+}
+
+
+.logo-ellipse{
+    pointer-events: none;
+    position: fixed;
+    left: 50%;
+    bottom: -45px;
+    transform: translateX(-50%);
+    z-index: 10;
+    height: 770px;
+}
+.ellipse-img{
+    width: 360px;
+}
+
+.logo-text{
+    position: fixed;
+    left: 49%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    z-index: 10;
+    font-family: 'Jomhuria', sans-serif;
+    font-size: 50px;
+    font-weight: 900;
+    color: white;
+    height: 730px;
+    -webkit-text-stroke: 2px #000; 
+    text-shadow: 0 0 2px rgba(0,0,0,0.6); 
+    pointer-events: none;
+    letter-spacing: -3px;
+}
+
