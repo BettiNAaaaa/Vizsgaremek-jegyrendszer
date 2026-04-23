@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bejelentkezés</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bejelentkezes.css">
+</head>
+<body>
+    <div class="header-bar"></div>
+  <nav class="main-menu d-flex justify-content-center">
+            <a class="navbar-brand" href="#">Rólunk</a>
+            <a class="navbar-brand" href="mozi.html">Mozi</a>
+            <a class="navbar-brand" href="operahazfantomja.html">Színház</a>
+            <a class="navbar-brand" href="bejelentkezes.html">Ticketz</a>
+         </nav>
+  <div class="text-center">
+    <div class="page-title">Bejelentkezés</div>
+</div>
+
+
+<div class="container mt-5">
+<div class="row justify-content-center">
+<div class="col-lg-10">
+
+<div class="form-box">
+
+<form>
+
+
+<div class="input-group">
+    <span class="input-group-text">Felhasználónév</span>
+    <input type="text" class="form-control custom-input" required>
+</div>
+
+<div class="input-group">
+    <span class="input-group-text">E-mail</span>
+    <input type="email" class="form-control custom-input" required>
+</div>
+
+
+
+<div class="row mt-3 mb-4 justify-content-center" style="max-width:700px; margin:auto;">
+
+<div class="col-md-6 mb-3 mb-md-0 position-relative">
+    <div class="input-group">
+        <span class="input-group-text">Jelszó</span>
+        <input type="password" id="password" class="form-control custom-input" required>
+    </div>
+    <i class="bi bi-eye-slash password-toggle" onclick="togglePassword('password', this)"></i>
+</div>
+
+
+
+</div>
+
+
+<div class="d-flex justify-content-center align-items-center gap-4 mt-4">
+    <img src="ticket 1.png" class="ticket-icon" alt="ticket">
+    <button type="submit" class="btn btn-custom">Bejelentkezés</button>
+</div>
+
+<div class="text-center mt-3">
+    <small>Nincs még fiókod? <a href="regisztracio.html">Regisztrálj itt!</a></small>
+</div>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<div class="footer-bar"></div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="bejelentkezes.js"></script>
+</body>
+</html>

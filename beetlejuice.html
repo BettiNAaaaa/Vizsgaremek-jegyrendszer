@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beetlejuice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   <link rel="stylesheet" href="beetlejuice.css">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+   
+</head>
+<body>
+    <div class="header-bar"></div>
+  <nav class="main-menu d-flex justify-content-center">
+            <a class="navbar-brand" href="#">Rólunk</a>
+            <a class="navbar-brand" href="mozi.html">Mozi</a>
+            <a class="navbar-brand" href="jegyfoglalo.html">Ticketz</a>
+            <a class="navbar-brand" href="bejelentkezes.html">Bejelentkezés</a>
+         </nav>
+  
+  <div class="text-center">
+    <div class="page-title">Színház</div>
+
+    <main class="stage-wrap">
+
+    <!-- Profil ikon (LINKELHETŐ) -->
+    <a class="profile-btn" href="profil.html" title="Profil"></a>
+
+    <!-- Függöny háttér bal/jobb -->
+    <div class="curtain curtain-left" aria-hidden="true"></div>
+    <div class="curtain curtain-right" aria-hidden="true"></div>
+
+    <!-- Középső bézs sáv, benne a kártya -->
+    <div class="center-strip">
+      <div class="container py-4">
+
+        <!-- KÁRTYA -->
+        <div class="show-card mx-auto">
+          <div class="row g-0 align-items-stretch">
+
+            <!-- Poszter -->
+            <div class="col-md-5 p-3 d-flex align-items-center justify-content-center">
+              <img class="show-poster" src="beetlejuice.png" alt="Beetlejuice">
+            </div>
+
+            <!-- Leírás -->
+            <div class="col-md-7 p-3">
+              <div class="show-content">
+                <h3 class="show-title">Beetlejuice</h3>
+                <div class="show-tags">Comedy • musical • Dark Fantasy</div>
+
+                <p class="show-desc">
+                  Egy morbidul vicces szellem, egy lázadó tinilány és egy ház,<br>
+                  ahol az élők és a holtak határai összemosódnak.<br>
+                  Humor, káosz és rockos dallamok - a halál még sose volt ennyire szórakoztató!
+                </p>
+
+                <div class="show-actions d-flex align-items-center gap-3 flex-wrap">
+                  <!-- JEGYVÁSÁRLÁS GOMB (LINKELHETŐ) -->
+                  <a class="btn btn-buy" href="jegyvasarlas.html">Jegyvásárlás</a>
+
+                  <!-- 12-es karika -->
+                  <div class="age-badge" aria-label="12">12</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- LE NYÍL GOMB (LINKELHETŐ) -->
+    <a href="jekyll&hyde.html">
+      <img src="#" alt="Lefelé nyíl" class="arrow-btn">
+</a>
+
+
+      </div>
+    </div>
+  </main>
+</div>
+
+ <div class="footer-bar"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script> 
+
+    
+</body>
+</html>
